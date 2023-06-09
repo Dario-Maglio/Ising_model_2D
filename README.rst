@@ -10,9 +10,9 @@ The scheme of the repository is the following:
 
 - ising_lattice_class.h contains the lattice class from which the ising lattice is instantiated. The class also has a Metropolis update method and its own PRNG for the Monte Carlo simulation.
 
-- ising_run_simulation.h contains the simulation parameters and the subroutine that generates the data in the Data_simulations folder. There, for every given beta and side, we can find a file with the measures of energy and magnetization.
+- ising_run_simulation.h contains the simulation parameters and the subroutine that generates the data in the Data_simulations folder. There, for every given value of beta and side, we can find a file with the measures of energy and magnetization.
 
-- main_ising.cpp and main_parallel.cpp call the above mentioned subroutine for all the given values of beta and side.
+- main_ising.cpp and main_parallel.cpp call the above mentioned subroutine for all betas and sides.
 
 - data_analysis.cpp contains the errors analysis parameters and generates the files in the Data_analysis folder. Here we can find the physical quantities in function of beta, the cumulant data in function of L and the analysis of the associated errors in the .txt files.
 
