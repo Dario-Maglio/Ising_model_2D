@@ -26,12 +26,10 @@ SIDE_SEP = 10
 sides = np.arange(SIDE_MIN, SIDE_MAX + 1, SIDE_SEP, dtype='int')
 logsides = np.log(sides)
 
-interval_chi = {20:(11,40), 30:(11,60), 40:(21,64),
-                50:(38,58), 60:(40,63), 70:(46,64)}
-interval_cal = {20:(21,56), 30:(35,64), 40:(46,66),
-                50:(43,66), 60:(50,66), 70:(50,66)}
-interval_mag = {20:(5,70), 30:(5,70), 40:(5,70),
-                50:(5,70), 60:(5,70), 70:(5,70)}
+interval_chi = {20:(10,45), 30:(13,57), 40:(32,58),
+                50:(38,62), 60:(43,62), 70:(45,62)}
+interval_cal = {20:(18,64), 30:(35,64), 40:(40,66),
+                50:(48,66), 60:(48,66), 70:(48,66)}
 
 #--- Contents ------------------------------------------------------------------
 
@@ -44,7 +42,7 @@ def fit_par(x, a, b, c):
     return y
 
 def fit_beta(x, a, b, c):
-    y = a / np.power(x, b) + c
+    y = a * np.power(x, -(1/b)) + c
     return y
 
 def load_data():
@@ -79,11 +77,12 @@ def par_max_fit(fit_x, fit_y, fit_e):
     par_c = ufloat(parameters[2], std_deviation[2])
     print(par_c)
     # compute y_max and x_max
-    print("Max point:")
+    print("Max x coordinate:")
     x_max = - par_b / (2 * par_a)
     print(x_max)
-    y_max = (par_b * par_b)/(4 * par_a)
-    y_max = y_max - (par_b * par_b)/(2 * par_a) + par_c
+    print("Max y coordinate:")
+    index_nearest = min(range(len(fit_x)), key=lambda i: abs(fit_x[i]-x_max))
+    y_max = ufloat(fit_par(x_max.n, *parameters) , fit_e[index_nearest])
     print(y_max)
     # compute reduced chi squared
     fitted_y = fit_par(fit_x, *parameters)
@@ -202,24 +201,10 @@ def critical_mag(data, beta):
         # select mag data
         x, _, _, y, y_err, _, _, _, _ = data[side]
         x, y, y_err = zip(*sorted(zip(x, y, y_err)))
-
-        # interpolation of critical mag
-        # x = x[63:69]
-        # y = y[63:69]
-        # # interpolate the critical magnetization
-        # mag_fun_2 = make_interp_spline(x, y, k=2)
-        # mag_fun_3 = make_interp_spline(x, y, k=3)
-        # # compute mag_cri with error systematic + nearest
-        # print("Critical magnetization:")
-        # mag_c_val = (mag_fun_3(beta.n) + mag_fun_2(beta.n)) / 2
-        # mag_c_err = abs(mag_fun_3(beta.n) - mag_fun_2(beta.n))
-        # mag_c_err = mag_c_err + y_err[66]
-        # print(f"{mag_c_val} pm {mag_c_err}")
-        # mag_cri.append(mag_c_val)
-        # mag_err.append(mag_c_err)
-
-        mag_cri.append(y[66])
-        mag_err.append(y_err[66])
+        # select nearest point to beta
+        index_nearest = min(range(len(x)), key=lambda i: abs(x[i] - beta))
+        mag_cri.append(y[index_nearest])
+        mag_err.append(y_err[index_nearest])
 
     return mag_cri, mag_err
 
@@ -246,7 +231,7 @@ def critical_point(beta_pc, beta_er):
     print(f"Reduced chi squared: \n{chisqrd}")
     # compute results
     beta_cr = par_c
-    nu_exp = 1 / par_b
+    nu_exp = par_b
     return (beta_cr, nu_exp, parameters)
 
 def critical_ratio(logy, loge):
@@ -285,7 +270,7 @@ def plot_beta_critical(beta_pc, beta_er, parameters):
     # plot data and fit in function of beta
     fit_x = np.linspace(10, 80, 100)
     fit_y = fit_beta(fit_x, *parameters)
-    fit_label = r'fit y = c + a / x^b'
+    fit_label = r'fit y = c + a * x^(-1/b)'
     plt.plot(fit_x, fit_y, '-', label=fit_label)
     plt.errorbar(sides, beta_pc, yerr=beta_er, fmt='.', label=f'simulation')
     # legend, save and show
@@ -306,7 +291,7 @@ def plot_critical_chi(y_max, y_err, parameters):
     # plot data and fit in function of beta
     fit_x = np.linspace(logsides[0], logsides[-1], 100)
     fit_y = fit_lin(fit_x, *parameters)
-    fit_label = f'fit logy = ratio * logL + b'
+    fit_label = f'fit logy = ratio * logL + c'
     plt.plot(fit_x, fit_y, '-', label=fit_label)
     sim_label = f'simulation data'
     plt.errorbar(logsides, y_max, yerr=y_err, fmt='<',label=sim_label)
@@ -328,7 +313,7 @@ def plot_critical_mag(y_max, y_err, parameters):
     # plot data and fit in function of beta
     fit_x = np.linspace(logsides[0], logsides[-1], 100)
     fit_y = fit_lin(fit_x, *parameters)
-    fit_label = f'fit logy = ratio * logL + b'
+    fit_label = f'fit logy = ratio * logL + c'
     plt.plot(fit_x, fit_y, '-', label=fit_label)
     sim_label = f'simulation data'
     plt.errorbar(logsides, y_max, yerr=y_err, fmt='<',label=sim_label)
@@ -350,7 +335,7 @@ def plot_critical_cal(y_max, y_err, parameters):
     # plot data and fit in function of beta
     fit_x = np.linspace(logsides[0], logsides[-1], 100)
     fit_y = fit_lin(fit_x, *parameters)
-    fit_label = f'fit logy = ratio * logL + b'
+    fit_label = f'fit logy = ratio * logL + c'
     plt.plot(fit_x, fit_y, '-', label=fit_label)
     sim_label = f'simulation data'
     plt.errorbar(logsides, y_max, yerr=y_err, fmt='<',label=sim_label)

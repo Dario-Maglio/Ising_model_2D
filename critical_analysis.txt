@@ -1,10 +1,29 @@
+################################################################################
+Data 11 giu 19:40
+################################################################################
+
+DATA 100000
+INTERVALS
+interval_chi = {20:(10,45), 30:(13,57), 40:(32,58),
+                50:(38,62), 60:(43,62), 70:(45,62)}
+interval_cal = {20:(18,64), 30:(35,64), 40:(40,66),
+                50:(48,66), 60:(48,66), 70:(48,66)}
+PARAMETERS
+#define BLOCKS 6
+#define MIN_CORR_LENGHT 2
+#define MAX_CORR_LENGHT 512
+#define NUM_FAKE_SAMP 150
+#define DIM_FAKE_SAMP 100000
+
+--------------------------------------------------------------------------------
+
 Loading Data_analysis/side_20_data.dat
 Loading Data_analysis/side_30_data.dat
 Loading Data_analysis/side_40_data.dat
 Loading Data_analysis/side_50_data.dat
 Loading Data_analysis/side_60_data.dat
 Loading Data_analysis/side_70_data.dat
-Loading complete! 
+Loading complete!
 
 --- Start parabolic fit for chi and cal -----
 
@@ -16,10 +35,10 @@ Fit parameters:
 Max point:
 0.42+/-0.07
 (0.0+/-1.2)e+03
-Reduced chi squared: 
+Reduced chi squared:
 0.7370569118599842
 
-Fit max susceptibility side: 20 
+Fit max susceptibility side: 20
 
 Susceptibility side 30
 Fit parameters:
@@ -29,10 +48,10 @@ Fit parameters:
 Max point:
 0.427+/-0.030
 (0.0+/-1.4)e+03
-Reduced chi squared: 
+Reduced chi squared:
 1.7053692703194288
 
-Fit max susceptibility side: 30 
+Fit max susceptibility side: 30
 
 Susceptibility side 40
 Fit parameters:
@@ -42,10 +61,10 @@ Fit parameters:
 Max point:
 0.430+/-0.034
 (0+/-4)e+03
-Reduced chi squared: 
+Reduced chi squared:
 1.5711587182910758
 
-Fit max susceptibility side: 40 
+Fit max susceptibility side: 40
 
 Susceptibility side 50
 Fit parameters:
@@ -55,10 +74,10 @@ Fit parameters:
 Max point:
 0.43+/-0.12
 (0+/-5)e+04
-Reduced chi squared: 
+Reduced chi squared:
 1.4674618727010955
 
-Fit max susceptibility side: 50 
+Fit max susceptibility side: 50
 
 Susceptibility side 60
 Fit parameters:
@@ -68,10 +87,10 @@ Fit parameters:
 Max point:
 0.43+/-0.10
 (0+/-7)e+04
-Reduced chi squared: 
+Reduced chi squared:
 1.6559829215977957
 
-Fit max susceptibility side: 60 
+Fit max susceptibility side: 60
 
 Susceptibility side 70
 Fit parameters:
@@ -81,10 +100,10 @@ Fit parameters:
 Max point:
 0.43+/-0.11
 (0.0+/-1.5)e+05
-Reduced chi squared: 
+Reduced chi squared:
 1.2159861703379327
 
-Fit max susceptibility side: 70 
+Fit max susceptibility side: 70
 
 Specific heat side 20
 Fit parameters:
@@ -94,10 +113,10 @@ Fit parameters:
 Max point:
 0.43+/-0.06
 (0.1+/-2.0)e+02
-Reduced chi squared: 
+Reduced chi squared:
 0.6554852271684947
 
-Fit max specific heat side: 20 
+Fit max specific heat side: 20
 
 Specific heat side 30
 Fit parameters:
@@ -107,10 +126,10 @@ Fit parameters:
 Max point:
 0.43+/-0.07
 (0+/-6)e+02
-Reduced chi squared: 
+Reduced chi squared:
 0.9001764664780562
 
-Fit max specific heat side: 30 
+Fit max specific heat side: 30
 
 Specific heat side 40
 Fit parameters:
@@ -120,10 +139,10 @@ Fit parameters:
 Max point:
 0.44+/-0.12
 (0.0+/-1.8)e+03
-Reduced chi squared: 
+Reduced chi squared:
 0.9555989752225718
 
-Fit max specific heat side: 40 
+Fit max specific heat side: 40
 
 Specific heat side 50
 Fit parameters:
@@ -133,10 +152,10 @@ Fit parameters:
 Max point:
 0.44+/-0.06
 (0.0+/-1.1)e+03
-Reduced chi squared: 
+Reduced chi squared:
 0.48186806285370226
 
-Fit max specific heat side: 50 
+Fit max specific heat side: 50
 
 Specific heat side 60
 Fit parameters:
@@ -146,10 +165,10 @@ Fit parameters:
 Max point:
 0.44+/-0.14
 (0+/-5)e+03
-Reduced chi squared: 
+Reduced chi squared:
 0.9765102610787562
 
-Fit max specific heat side: 60 
+Fit max specific heat side: 60
 
 Specific heat side 70
 Fit parameters:
@@ -159,10 +178,10 @@ Fit parameters:
 Max point:
 0.44+/-0.13
 (0+/-6)e+03
-Reduced chi squared: 
+Reduced chi squared:
 1.418904550079428
 
-Fit max specific heat side: 70 
+Fit max specific heat side: 70
 
 --- Study the critical point ----------------
 
@@ -171,7 +190,7 @@ Fit parameters:
 -0.37+/-0.06
 0.95+/-0.07
 0.4412+/-0.0010
-Reduced chi squared: 
+Reduced chi squared:
 8.766776661137601e-06
 
 Critical beta:
@@ -187,7 +206,7 @@ Study chi_max
 Fit parameters:
 1.702+/-0.005
 -2.031+/-0.017
-Reduced chi squared: 
+Reduced chi squared:
 2.8566968412746434e-09
 
 Critical exponent gamma:
@@ -199,7 +218,7 @@ Study magnetization
 Fit parameters:
 -0.136+/-0.007
 0.031+/-0.026
-Reduced chi squared: 
+Reduced chi squared:
 2.1842966079784527
 
 Critical exponent beta:
@@ -211,7 +230,7 @@ Study cal_max
 Fit parameters:
 0.2316+/-0.0025
 1.502+/-0.008
-Reduced chi squared: 
+Reduced chi squared:
 1.1568035939351751e-09
 
 Critical exponent alpha:
@@ -219,3 +238,235 @@ Critical exponent alpha:
 
 Plot chi_max as a function of L
 
+Loading Data_analysis/side_20_data.dat
+Loading Data_analysis/side_30_data.dat
+Loading Data_analysis/side_40_data.dat
+Loading Data_analysis/side_50_data.dat
+Loading Data_analysis/side_60_data.dat
+Loading Data_analysis/side_70_data.dat
+Loading complete!
+
+--- Start parabolic fit for chi and cal -----
+
+Susceptibility side 20
+Fit parameters:
+(-1.82+/-0.08)e+04
+(1.53+/-0.07)e+04
+(-3.19+/-0.14)e+03
+Max x coordinate:
+0.420+/-0.027
+Max y coordinate:
+21.48+/-0.15
+Reduced chi squared:
+1.011986592072163
+
+Fit max susceptibility side: 20
+
+Susceptibility side 30
+Fit parameters:
+(-6.76+/-0.34)e+04
+(5.77+/-0.28)e+04
+(-1.23+/-0.06)e+04
+Max x coordinate:
+0.427+/-0.030
+Max y coordinate:
+42.8+/-0.4
+Reduced chi squared:
+2.4024811235696903
+
+Fit max susceptibility side: 30
+
+Susceptibility side 40
+Fit parameters:
+(-2.49+/-0.19)e+05
+(2.14+/-0.16)e+05
+(-4.60+/-0.34)e+04
+Max x coordinate:
+0.43+/-0.05
+Max y coordinate:
+71.3+/-1.0
+Reduced chi squared:
+0.9895497438733174
+
+Fit max susceptibility side: 40
+
+Susceptibility side 50
+Fit parameters:
+(-4.7+/-0.5)e+05
+(4.1+/-0.4)e+05
+(-8.9+/-0.9)e+04
+Max x coordinate:
+0.43+/-0.06
+Max y coordinate:
+103.5+/-2.1
+Reduced chi squared:
+1.2240393736681354
+
+Fit max susceptibility side: 50
+
+Susceptibility side 60
+Fit parameters:
+(-1.29+/-0.11)e+06
+(1.12+/-0.10)e+06
+(-2.42+/-0.21)e+05
+Max x coordinate:
+0.43+/-0.05
+Max y coordinate:
+143.7+/-3.0
+Reduced chi squared:
+0.7930591439996828
+
+Fit max susceptibility side: 60
+
+Susceptibility side 70
+Fit parameters:
+(-1.89+/-0.17)e+06
+(1.64+/-0.15)e+06
+(-3.56+/-0.33)e+05
+Max x coordinate:
+0.43+/-0.06
+Max y coordinate:
+188+/-5
+Reduced chi squared:
+0.5560939817826068
+
+Fit max susceptibility side: 70
+
+Specific heat side 20
+Fit parameters:
+(-5.31+/-0.18)e+03
+(4.56+/-0.15)e+03
+-971+/-33
+Max x coordinate:
+0.430+/-0.020
+Max y coordinate:
+8.95+/-0.05
+Reduced chi squared:
+0.6769424291446956
+
+Fit max specific heat side: 20
+
+Specific heat side 30
+Fit parameters:
+(-1.10+/-0.06)e+04
+(9.5+/-0.6)e+03
+(-2.06+/-0.12)e+03
+Max x coordinate:
+0.43+/-0.04
+Max y coordinate:
+9.88+/-0.07
+Reduced chi squared:
+0.5014183763783088
+
+Fit max specific heat side: 30
+
+Specific heat side 40
+Fit parameters:
+(-1.70+/-0.13)e+04
+(1.48+/-0.12)e+04
+(-3.22+/-0.25)e+03
+Max x coordinate:
+0.44+/-0.05
+Max y coordinate:
+10.57+/-0.08
+Reduced chi squared:
+0.7331587605241758
+
+Fit max specific heat side: 40
+
+Specific heat side 50
+Fit parameters:
+(-2.8+/-0.4)e+04
+(2.42+/-0.33)e+04
+(-5.3+/-0.7)e+03
+Max x coordinate:
+0.44+/-0.08
+Max y coordinate:
+11.09+/-0.10
+Reduced chi squared:
+0.6760623785676313
+
+Fit max specific heat side: 50
+
+Specific heat side 60
+Fit parameters:
+(-4.2+/-0.6)e+04
+(3.7+/-0.5)e+04
+(-8.1+/-1.2)e+03
+Max x coordinate:
+0.44+/-0.09
+Max y coordinate:
+11.52+/-0.12
+Reduced chi squared:
+1.2001447850863751
+
+Fit max specific heat side: 60
+
+Specific heat side 70
+Fit parameters:
+(-5.1+/-0.8)e+04
+(4.5+/-0.7)e+04
+(-9.8+/-1.4)e+03
+Max x coordinate:
+0.44+/-0.09
+Max y coordinate:
+11.99+/-0.18
+Reduced chi squared:
+1.4606030933610918
+
+Fit max specific heat side: 70
+
+--- Study the critical point ----------------
+
+Study pseudo critical beta
+Fit parameters:
+-0.44+/-0.05
+0.97+/-0.04
+0.4401+/-0.0006
+Reduced chi squared:
+1.0158812098902058e-05
+
+Critical beta:
+0.4401+/-0.0006
+Critical exponent nu:
+0.97+/-0.04
+
+Plot beta_pc as a function of L
+
+--- Study the critical ratios ---------------
+
+Study chi_max
+Fit parameters:
+1.727+/-0.007
+-2.108+/-0.023
+Reduced chi squared:
+0.40980848975899437
+
+Critical exponent gamma:
+1.67+/-0.08
+
+Plot chi_max as a function of L
+
+Study magnetization
+Fit parameters:
+-0.133+/-0.004
+0.022+/-0.016
+Reduced chi squared:
+1.5840094319341314
+
+Critical exponent beta:
+0.129+/-0.007
+
+Plot mag_cri as a function of L
+
+Study cal_max
+Fit parameters:
+0.2330+/-0.0030
+1.495+/-0.010
+Reduced chi squared:
+0.21802784364933062
+
+Critical exponent alpha:
+-0.226+/-0.011
+
+Plot chi_max as a function of L

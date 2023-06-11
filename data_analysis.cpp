@@ -8,6 +8,8 @@
 
 #include <iostream>
 #include <fstream>
+#include <chrono>
+
 #include <cmath>
 #include <vector>
 #include <string>
@@ -66,7 +68,7 @@ mt19937_64 generator(SEED);
 #define MIN_CORR_LENGHT 2
 #define MAX_CORR_LENGHT 512
 #define NUM_FAKE_SAMP 150
-#define DIM_FAKE_SAMP 50000
+#define DIM_FAKE_SAMP 100000
 
 //--- Contents -----------------------------------------------------------------
 
@@ -418,11 +420,16 @@ void complete_analysis(){
 int main(){
     /* Main program for the data analysis. */
 
-    //partial_analysis();
-    complete_analysis();
+    auto start = chrono::steady_clock::now();
+    partial_analysis();
+    //complete_analysis();
 
-    cumulant_analysis(BETA_CUM_MIN);
-    cumulant_analysis(BETA_CUM_MAX);
+    //cumulant_analysis(BETA_CUM_MIN);
+    //cumulant_analysis(BETA_CUM_MAX);
+    auto end = chrono::steady_clock::now();
+
+    chrono::duration<double> elapsed_seconds = end - start;
+    cout << "Elapsed time: " << elapsed_seconds.count() << "s " << endl << endl;
 
     cout << "The work is done." << endl << endl;
 }
