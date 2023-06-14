@@ -9,56 +9,22 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
-from scipy.interpolate import make_interp_spline
 from uncertainties import ufloat, unumpy
+
+# import data, fit functions and plot subroutines
+from critical_plots_subr import *
 
 #*******************************************************************************
 # PARAMETERS OF THE SIMULATION
 #
-# SIDE_SEP = separation between the sides of different simulations.
+# interval = data interval to fit for chi and cal.
 #
 #*******************************************************************************
-
-SIDE_MIN = 20
-SIDE_MAX = 70
-SIDE_SEP = 10
-
-sides = np.arange(SIDE_MIN, SIDE_MAX + 1, SIDE_SEP, dtype='int')
-logsides = np.log(sides)
 
 interval_chi = {20:(10,45), 30:(13,57), 40:(32,58),
                 50:(38,62), 60:(43,62), 70:(45,62)}
 interval_cal = {20:(18,64), 30:(35,64), 40:(40,66),
                 50:(48,66), 60:(48,66), 70:(48,66)}
-
-#--- Contents ------------------------------------------------------------------
-
-def fit_lin(x, a, b):
-    y = a * np.power(x, 1) + b
-    return y
-
-def fit_par(x, a, b, c):
-    y = a * np.power(x, 2) + b * np.power(x, 1) + c
-    return y
-
-def fit_beta(x, a, b, c):
-    y = a * np.power(x, -(1/b)) + c
-    return y
-
-def load_data():
-    """ Load data produced by analysis """
-
-    data = {}
-    for side in sides:
-        # define data file path
-        filename = f"side_{side}_data.dat"
-        file_path = os.path.join("Data_analysis", filename)
-        print("Loading " + file_path)
-        # load data from each side file
-        if os.path.isfile(file_path):
-            data[side] = np.loadtxt(file_path, unpack='True')
-
-    return data
 
 #--- Parabolic fit subroutines -------------------------------------------------
 
@@ -66,7 +32,7 @@ def par_max_fit(fit_x, fit_y, fit_e):
     """ Get y_max values and correspinding x_max with parabolic fit """
 
     # fit the parabola
-    parameters, covariance = curve_fit(fit_par, fit_x, fit_y, sigma=fit_e)
+    parameters, covariance = curve_fit(fit_par, fit_x, fit_y, sigma=fit_e, bounds=((-np.inf, 0, 0), (0, 0.5, np.inf)))
     std_deviation = np.sqrt(np.diag(covariance))
     # print values and uncertainties
     print("Fit parameters:")
@@ -78,11 +44,10 @@ def par_max_fit(fit_x, fit_y, fit_e):
     print(par_c)
     # compute y_max and x_max
     print("Max x coordinate:")
-    x_max = - par_b / (2 * par_a)
+    x_max = par_b
     print(x_max)
     print("Max y coordinate:")
-    index_nearest = min(range(len(fit_x)), key=lambda i: abs(fit_x[i]-x_max))
-    y_max = ufloat(fit_par(x_max.n, *parameters) , fit_e[index_nearest])
+    y_max = par_c
     print(y_max)
     # compute reduced chi squared
     fitted_y = fit_par(fit_x, *parameters)
@@ -143,56 +108,10 @@ def parabolic_fit_cal(data):
 
     return cal_max, cal_err
 
-#--- Parabolic plot subroutines ------------------------------------------------
-
-def plot_par_chi(x, y, y_err, a, b, parameters, title):
-    """ Plot parabolic fit for chi """
-
-    fig = plt.figure(title)
-    # axis and style
-    plt.style.use('seaborn-whitegrid')
-    plt.title(title)
-    plt.ylabel(r'$ \chi $')
-    plt.xlabel(r'$ \beta $')
-    plt.xlim([0.40, 0.45])
-    # plot data and fit in function of beta
-    fit_x = np.linspace(x[a], x[b], 100)
-    fit_y = fit_par(fit_x, *parameters)
-    fit_label = f'fit [{round(x[a], 4)}, {round(x[b], 4)}]'
-    plt.plot(fit_x, fit_y, '-', label=fit_label)
-    plt.errorbar(x, y, yerr=y_err, fmt='.', label=f'simulation')
-    # legend, save and show
-    plt.legend(loc='lower right')
-    path = os.path.join("Plots_and_fit", "Max_Sus")
-    plt.savefig(os.path.join(path, title + ".png"))
-    plt.show()
-
-def plot_par_cal(x, y, y_err, a, b, parameters, title):
-    """ Plot parabolic fit for cal """
-
-    fig = plt.figure(title)
-    # axis and style
-    plt.style.use('seaborn-whitegrid')
-    plt.title(title)
-    plt.ylabel(r'$ C_V $')
-    plt.xlabel(r'$ \beta $')
-    plt.xlim([0.40, 0.45])
-    # plot data and fit in function of beta
-    fit_x = np.linspace(x[a], x[b], 100)
-    fit_y = fit_par(fit_x, *parameters)
-    fit_label = f'fit [{round(x[a], 4)}, {round(x[b], 4)}]'
-    plt.plot(fit_x, fit_y, '-', label=fit_label)
-    plt.errorbar(x, y, yerr=y_err, fmt='.', label=f'simulation')
-    # legend, save and show
-    plt.legend(loc='lower right')
-    path = os.path.join("Plots_and_fit", "Max_Cal")
-    plt.savefig(os.path.join(path, title + ".png"))
-    plt.show()
-
 #--- Mag interpolation ---------------------------------------------------------
 
 def critical_mag(data, beta):
-    """ Subroutine for parabolic fit of mag max """
+    """ Subroutine for selecting mag max """
 
     mag_cri = []
     mag_err = []
@@ -244,8 +163,8 @@ def critical_ratio(logy, loge):
     print("Fit parameters:")
     par_a = ufloat(parameters[0], std_deviation[0])
     print(par_a)
-    par_b = ufloat(parameters[1], std_deviation[1])
-    print(par_b)
+    par_c = ufloat(parameters[1], std_deviation[1])
+    print(par_c)
     # compute reduced chi squared
     fitted_y = fit_lin(logsides, *parameters)
     chisq = np.sum(np.power(((logy - fitted_y)/ loge), 2))
@@ -254,95 +173,6 @@ def critical_ratio(logy, loge):
     # compute results
     ratio = par_a
     return (ratio, parameters)
-
-#--- Plot subroutines ----------------------------------------------------------
-
-def plot_beta_critical(beta_pc, beta_er, parameters):
-    """ Plot beta_pc as a function of L """
-
-    title = "Fit beta_pc as a function of L"
-    fig = plt.figure(title)
-    # axis and style
-    plt.style.use('seaborn-whitegrid')
-    plt.title(title)
-    plt.ylabel(r'$ \beta_{pc} $')
-    plt.xlabel(r'$ L $')
-    # plot data and fit in function of beta
-    fit_x = np.linspace(10, 80, 100)
-    fit_y = fit_beta(fit_x, *parameters)
-    fit_label = r'fit y = c + a * x^(-1/b)'
-    plt.plot(fit_x, fit_y, '-', label=fit_label)
-    plt.errorbar(sides, beta_pc, yerr=beta_er, fmt='.', label=f'simulation')
-    # legend, save and show
-    plt.legend(loc='lower right')
-    plt.savefig(os.path.join("Plots_and_fit", title + ".png"))
-    plt.show()
-
-def plot_critical_chi(y_max, y_err, parameters):
-    """ Plot chi_max as a function of L"""
-
-    title = "Fit chi_max as a function of L"
-    fig = plt.figure(title)
-    # axis and style
-    plt.style.use('seaborn-whitegrid')
-    plt.title(title)
-    plt.ylabel(r'$ \log \chi_{max} $')
-    plt.xlabel(r'$ \log L $')
-    # plot data and fit in function of beta
-    fit_x = np.linspace(logsides[0], logsides[-1], 100)
-    fit_y = fit_lin(fit_x, *parameters)
-    fit_label = f'fit logy = ratio * logL + c'
-    plt.plot(fit_x, fit_y, '-', label=fit_label)
-    sim_label = f'simulation data'
-    plt.errorbar(logsides, y_max, yerr=y_err, fmt='<',label=sim_label)
-    # legend, save and show
-    plt.legend(loc='lower right')
-    plt.savefig(os.path.join("Plots_and_fit", title + ".png"))
-    plt.show()
-
-def plot_critical_mag(y_max, y_err, parameters):
-    """ Plot magnetization as a function of L"""
-
-    title = "Fit magnetization as a function of L"
-    fig = plt.figure(title)
-    # axis and style
-    plt.style.use('seaborn-whitegrid')
-    plt.title(title)
-    plt.ylabel(r'$ \log \langle | M | \rangle $')
-    plt.xlabel(r'$ \log L $')
-    # plot data and fit in function of beta
-    fit_x = np.linspace(logsides[0], logsides[-1], 100)
-    fit_y = fit_lin(fit_x, *parameters)
-    fit_label = f'fit logy = ratio * logL + c'
-    plt.plot(fit_x, fit_y, '-', label=fit_label)
-    sim_label = f'simulation data'
-    plt.errorbar(logsides, y_max, yerr=y_err, fmt='<',label=sim_label)
-    # legend, save and show
-    plt.legend(loc='upper right')
-    plt.savefig(os.path.join("Plots_and_fit", title + ".png"))
-    plt.show()
-
-def plot_critical_cal(y_max, y_err, parameters):
-    """ Plot cal_max as a function of L"""
-
-    title = "Fit cal_max as a function of L"
-    fig = plt.figure(title)
-    # axis and style
-    plt.style.use('seaborn-whitegrid')
-    plt.title(title)
-    plt.ylabel(r'$ \log C_V $')
-    plt.xlabel(r'$ \log L $')
-    # plot data and fit in function of beta
-    fit_x = np.linspace(logsides[0], logsides[-1], 100)
-    fit_y = fit_lin(fit_x, *parameters)
-    fit_label = f'fit logy = ratio * logL + c'
-    plt.plot(fit_x, fit_y, '-', label=fit_label)
-    sim_label = f'simulation data'
-    plt.errorbar(logsides, y_max, yerr=y_err, fmt='<',label=sim_label)
-    # legend, save and show
-    plt.legend(loc='lower right')
-    plt.savefig(os.path.join("Plots_and_fit", title + ".png"))
-    plt.show()
 
 #--- Main ----------------------------------------------------------------------
 
@@ -382,10 +212,10 @@ if __name__ == '__main__':
     logy = [val.n for val in loguy]
     loge = [val.std_dev for val in loguy]
     # fit the data
-    ratio, parameters = critical_ratio(logy, loge)
+    ratio_gamma_nu, parameters = critical_ratio(logy, loge)
     # compute exponent
     print("\nCritical exponent gamma:")
-    gamma_exp = nu_exp * ratio
+    gamma_exp = nu_exp * ratio_gamma_nu
     print(gamma_exp)
     # plot results
     print("\nPlot chi_max as a function of L\n")
@@ -401,28 +231,23 @@ if __name__ == '__main__':
     logy = [logval.n for logval in loguy]
     loge = [logval.std_dev for logval in loguy]
     # fit the data
-    ratio, parameters = critical_ratio(logy, loge)
+    ratio_beta_nu, parameters = critical_ratio(logy, loge)
     # compute exponent
     print("\nCritical exponent beta:")
-    beta_exp = - nu_exp * ratio
+    beta_exp = - nu_exp * ratio_beta_nu
     print(beta_exp)
     # plot results
     print("\nPlot mag_cri as a function of L\n")
     plot_critical_mag(logy, loge, parameters)
 
-    #---Critical ratio alpha
+    #---Critical alpha
     print("Study cal_max")
-    # format data in log scale
-    uy = [ ufloat(val, err) for val, err in zip(cal_max, cal_err)]
-    loguy = unumpy.log(uy)
-    logy = [logval.n for logval in loguy]
-    loge = [logval.std_dev for logval in loguy]
-    # fit the data
-    ratio, parameters = critical_ratio(logy, loge)
-    # compute exponent
-    print("\nCritical exponent alpha:")
-    alpha_exp = - nu_exp * ratio
-    print(alpha_exp)
-    # plot results
+    ratio, parameters = critical_ratio(cal_max, cal_err)
     print("\nPlot chi_max as a function of L\n")
-    plot_critical_cal(logy, loge, parameters)
+    plot_critical_cal(cal_max, cal_err, parameters)
+
+    #------ Finite size-scaling
+    print("--- Study the finite size scaling -----------\n")
+    plot_chi_scaling(data, beta_cr.n, ratio_gamma_nu.n, nu_exp.n)
+    plot_mag_scaling(data, beta_cr.n, ratio_beta_nu.n, nu_exp.n)
+    plot_cal_scaling(data, beta_cr.n, parameters[0], nu_exp.n)

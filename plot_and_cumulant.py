@@ -18,7 +18,7 @@ from scipy.optimize import curve_fit
 #*******************************************************************************
 
 SIDE_SEP = 10
-SIDE_MIN = 10
+SIDE_MIN = 30
 SIDE_MAX = 70
 
 BETA_INI = 0.3800
@@ -63,8 +63,8 @@ def load_cumulant(beta):
 
 #--- Plot procedures -----------------------------------------------------------
 
-def plot_one(data):
-    """ Plot one thing per time, e.g. susceptibility """
+def plot_susceptibility(data):
+    """ Plot susceptibility """
 
     title = "Plot susceptibility"
     print(title + "\n")
@@ -77,6 +77,66 @@ def plot_one(data):
     # load and plot susceptibility in function of beta
     for side in sides:
         x, _, _, _, _, _, _, y, y_err = data[side]
+        plt.errorbar(x, y, yerr=y_err, fmt='.', label=f'side = {side}')
+    # save and show
+    plt.legend(loc='upper right')
+    plt.savefig(os.path.join("Plots_and_fit", title + ".png"))
+    plt.show()
+
+def plot_magnetization(data):
+    """ Plot magnetization """
+
+    title = "Plot magnetization"
+    print(title + "\n")
+    # axis and style
+    fig = plt.figure(title)
+    plt.style.use('seaborn-whitegrid')
+    plt.title(title)
+    plt.ylabel(r'$ \langle |M| \rangle $')
+    plt.xlabel(r'$\beta$')
+    # load and plot susceptibility in function of beta
+    for side in sides:
+        x, _, _, y, y_err, _, _, _, _ = data[side]
+        plt.errorbar(x, y, yerr=y_err, fmt='.', label=f'side = {side}')
+    # save and show
+    plt.legend(loc='lower right')
+    plt.savefig(os.path.join("Plots_and_fit", title + ".png"))
+    plt.show()
+
+def plot_energy(data):
+    """ Plot energy """
+
+    title = "Plot energy density"
+    print(title + "\n")
+    # axis and style
+    fig = plt.figure(title)
+    plt.style.use('seaborn-whitegrid')
+    plt.title(title)
+    plt.ylabel(r'$ \langle \epsilon \rangle $')
+    plt.xlabel(r'$\beta$')
+    # load and plot susceptibility in function of beta
+    for side in sides:
+        x, y, y_err, _, _, _, _, _, _ = data[side]
+        plt.errorbar(x, y, yerr=y_err, fmt='.', label=f'side = {side}')
+    # save and show
+    plt.legend(loc='upper right')
+    plt.savefig(os.path.join("Plots_and_fit", title + ".png"))
+    plt.show()
+
+def plot_specific_heat(data):
+    """ Plot specific heat """
+
+    title = "Plot specific heat"
+    print(title + "\n")
+    # axis and style
+    fig = plt.figure(title)
+    plt.style.use('seaborn-whitegrid')
+    plt.title(title)
+    plt.ylabel(r'$ C_V $')
+    plt.xlabel(r'$\beta$')
+    # load and plot susceptibility in function of beta
+    for side in sides:
+        x, _, _, _, _, y, y_err, _, _ = data[side]
         plt.errorbar(x, y, yerr=y_err, fmt='.', label=f'side = {side}')
     # save and show
     plt.legend(loc='upper right')
@@ -172,7 +232,11 @@ if __name__ == '__main__':
 
     data = load_data()
 
-    plot_one(data)
+    plot_energy(data)
+    plot_specific_heat(data)
+    plot_magnetization(data)
+    plot_susceptibility(data)
+
     plot_all(data)
 
     cumulant(BETA_INI)
