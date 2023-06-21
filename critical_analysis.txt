@@ -1155,3 +1155,241 @@ Plot scaling magnetization
 
 Plot scaling specific heat
 
+Loading Data_analysis/side_20_data.dat
+Loading Data_analysis/side_30_data.dat
+Loading Data_analysis/side_40_data.dat
+Loading Data_analysis/side_50_data.dat
+Loading Data_analysis/side_60_data.dat
+Loading Data_analysis/side_70_data.dat
+Loading complete! 
+
+--- Start parabolic fit for chi and cal -----
+
+Susceptibility side 20
+Fit parameters:
+(-1.76+/-0.06)e+04
+0.42000+/-0.00011
+21.476+/-0.025
+Max x coordinate:
+0.42000+/-0.00011
+Max y coordinate:
+21.476+/-0.025
+Reduced chi squared: 
+0.8319882584738564
+
+Fit max susceptibility side: 20 
+
+Susceptibility side 30
+Fit parameters:
+(-6.81+/-0.29)e+04
+0.42687+/-0.00017
+42.88+/-0.12
+Max x coordinate:
+0.42687+/-0.00017
+Max y coordinate:
+42.88+/-0.12
+Reduced chi squared: 
+2.6479805176578486
+
+Fit max susceptibility side: 30 
+
+Susceptibility side 40
+Fit parameters:
+(-2.44+/-0.13)e+05
+0.43049+/-0.00011
+71.27+/-0.19
+Max x coordinate:
+0.43049+/-0.00011
+Max y coordinate:
+71.27+/-0.19
+Reduced chi squared: 
+0.6984428270483966
+
+Fit max susceptibility side: 40 
+
+Susceptibility side 50
+Fit parameters:
+(-4.4+/-0.4)e+05
+0.43252+/-0.00014
+103.6+/-0.4
+Max x coordinate:
+0.43252+/-0.00014
+Max y coordinate:
+103.6+/-0.4
+Reduced chi squared: 
+1.0070438099539898
+
+Fit max susceptibility side: 50 
+
+Susceptibility side 60
+Fit parameters:
+(-1.29+/-0.09)e+06
+0.43344+/-0.00008
+144.1+/-0.7
+Max x coordinate:
+0.43344+/-0.00008
+Max y coordinate:
+144.1+/-0.7
+Reduced chi squared: 
+0.6807026866062181
+
+Fit max susceptibility side: 60 
+
+Susceptibility side 70
+Fit parameters:
+(-1.77+/-0.21)e+06
+0.43479+/-0.00021
+188.5+/-1.2
+Max x coordinate:
+0.43479+/-0.00021
+Max y coordinate:
+188.5+/-1.2
+Reduced chi squared: 
+1.173947452203738
+
+Fit max susceptibility side: 70 
+
+Specific heat side 20
+Fit parameters:
+(-5.33+/-0.14)e+03
+0.42967+/-0.00008
+8.946+/-0.006
+Max x coordinate:
+0.42967+/-0.00008
+Max y coordinate:
+8.946+/-0.006
+Reduced chi squared: 
+0.6220121761447975
+
+Fit max specific heat side: 20 
+
+Specific heat side 30
+Fit parameters:
+(-1.12+/-0.06)e+04
+0.43407+/-0.00015
+9.875+/-0.011
+Max x coordinate:
+0.43407+/-0.00015
+Max y coordinate:
+9.875+/-0.011
+Reduced chi squared: 
+0.7511219267335058
+
+Fit max specific heat side: 30 
+
+Specific heat side 40
+Fit parameters:
+(-1.70+/-0.10)e+04
+0.43613+/-0.00017
+10.548+/-0.014
+Max x coordinate:
+0.43613+/-0.00017
+Max y coordinate:
+10.548+/-0.014
+Reduced chi squared: 
+0.5584531898015231
+
+Fit max specific heat side: 40 
+
+Specific heat side 50
+Fit parameters:
+(-3.0+/-0.4)e+04
+0.43710+/-0.00028
+11.093+/-0.031
+Max x coordinate:
+0.43710+/-0.00028
+Max y coordinate:
+11.093+/-0.031
+Reduced chi squared: 
+1.3778253131235734
+
+Fit max specific heat side: 50 
+
+Specific heat side 60
+Fit parameters:
+(-3.9+/-0.4)e+04
+0.43781+/-0.00027
+11.541+/-0.032
+Max x coordinate:
+0.43781+/-0.00027
+Max y coordinate:
+11.541+/-0.032
+Reduced chi squared: 
+0.8228538247530491
+
+Fit max specific heat side: 60 
+
+Specific heat side 70
+Fit parameters:
+(-5.1+/-0.6)e+04
+0.4383+/-0.0004
+12.01+/-0.06
+Max x coordinate:
+0.4383+/-0.0004
+Max y coordinate:
+12.01+/-0.06
+Reduced chi squared: 
+1.4558957346885053
+
+Fit max specific heat side: 70 
+
+--- Study the critical point ----------------
+
+Study pseudo critical beta
+Fit parameters:
+-0.62+/-0.19
+0.86+/-0.09
+0.4388+/-0.0010
+Reduced chi squared: 
+4.544282876592091
+
+Critical beta:
+0.4388+/-0.0010
+Critical exponent nu:
+0.86+/-0.09
+
+Plot beta_pc as a function of L
+
+--- Study the critical ratios ---------------
+
+Study chi_max
+Fit parameters:
+1.728+/-0.005
+-2.109+/-0.017
+Reduced chi squared: 
+6.020468570256754
+
+Critical exponent gamma:
+1.48+/-0.15
+
+Plot chi_max as a function of L
+
+Study magnetization
+Fit parameters:
+-0.177+/-0.009
+0.143+/-0.032
+Reduced chi squared: 
+8.027013371148009
+
+Critical exponent beta:
+0.152+/-0.017
+
+Plot mag_cri as a function of L
+
+Study cal_max
+Fit parameters:
+2.337+/-0.024
+1.94+/-0.08
+Reduced chi squared: 
+3.3521436118907126
+
+Plot chi_max as a function of L
+
+--- Study the finite size scaling -----------
+
+Plot scaling susceptibility
+
+Plot scaling magnetization
+
+Plot scaling specific heat
+

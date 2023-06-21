@@ -34,10 +34,10 @@ using namespace std;
 #define BETA_SEP 0.0050
 #define BETA_INI 0.3600
 #define BETA_FIN 0.4800
-// define inner betas -> 50 points
+// define inner betas -> 56 points
 #define BETA_C_SEP 0.00050
 #define BETA_C_INI 0.41525
-#define BETA_C_FIN 0.44000
+#define BETA_C_FIN 0.44350
 
 //--- Main ---------------------------------------------------------------------
 

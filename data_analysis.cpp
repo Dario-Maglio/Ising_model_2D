@@ -41,10 +41,10 @@ mt19937_64 generator(SEED);
 #define BETA_SEP 0.0050
 #define BETA_INI 0.3600
 #define BETA_FIN 0.4800
-// define inner betas -> 50 points
+// define inner betas -> 56 points
 #define BETA_C_SEP 0.00050
 #define BETA_C_INI 0.41525
-#define BETA_C_FIN 0.44000
+#define BETA_C_FIN 0.44350
 // define cumulant betas
 #define BETA_CUM_MIN 0.3800
 #define BETA_CUM_MAX 0.4800
@@ -64,11 +64,11 @@ mt19937_64 generator(SEED);
 *
 *******************************************************************************/
 
-#define BLOCKS 6
+#define BLOCKS 7
 #define MIN_CORR_LENGHT 2
-#define MAX_CORR_LENGHT 512
-#define NUM_FAKE_SAMP 150
-#define DIM_FAKE_SAMP 100000
+#define MAX_CORR_LENGHT 2048
+#define NUM_FAKE_SAMP 100
+#define DIM_FAKE_SAMP 150000
 
 //--- Contents -----------------------------------------------------------------
 
@@ -423,7 +423,6 @@ int main(){
     auto start = chrono::steady_clock::now();
     partial_analysis();
     //complete_analysis();
-
     //cumulant_analysis(BETA_CUM_MIN);
     //cumulant_analysis(BETA_CUM_MAX);
     auto end = chrono::steady_clock::now();
