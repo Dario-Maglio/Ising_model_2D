@@ -12,7 +12,7 @@
 #include <chrono>
 
 // Import the simulation subroutine
-#include "ising_run_simulation.h"
+#include "data_simulation.h"
 
 using namespace std;
 
