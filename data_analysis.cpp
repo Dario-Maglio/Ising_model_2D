@@ -65,10 +65,10 @@ mt19937_64 generator(SEED);
 *******************************************************************************/
 
 #define BLOCKS 7
-#define MIN_CORR_LENGHT 2
-#define MAX_CORR_LENGHT 2048
-#define NUM_FAKE_SAMP 100
-#define DIM_FAKE_SAMP 150000
+#define MIN_CORR_LENGHT 1
+#define MAX_CORR_LENGHT 2048 // for side > 30
+#define NUM_FAKE_SAMP 150
+#define DIM_FAKE_SAMP 200000 // for side > 30
 
 //--- Contents -----------------------------------------------------------------
 
@@ -422,9 +422,9 @@ int main(){
 
     auto start = chrono::steady_clock::now();
     partial_analysis();
-    //complete_analysis();
-    //cumulant_analysis(BETA_CUM_MIN);
-    //cumulant_analysis(BETA_CUM_MAX);
+    // complete_analysis();
+    // cumulant_analysis(BETA_CUM_MIN);
+    // cumulant_analysis(BETA_CUM_MAX);
     auto end = chrono::steady_clock::now();
 
     chrono::duration<double> elapsed_seconds = end - start;
