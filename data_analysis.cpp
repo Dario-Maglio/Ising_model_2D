@@ -127,7 +127,8 @@ double blocking(vector<double>& x, ofstream &file){
 
         // compute variance
         for(int i = 0; i < k_steps; i++) var += pow(x_k[i] - x_ave, 2);
-        var = var / (k_steps * (k_steps - 1));
+        var = var / (k_steps - 1);
+        var = var / k_steps;
 
         file << "k steps " << k << " -> ";
         file << x_ave << " ± " << sqrt(var) << endl;
