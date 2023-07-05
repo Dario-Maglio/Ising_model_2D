@@ -11,7 +11,7 @@
 #include <chrono>
 
 // Import the Class lattice
-#include "../ising_lattice_class.h"
+#include "../class_lattice.h"
 
 using namespace std;
 
