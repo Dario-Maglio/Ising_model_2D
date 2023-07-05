@@ -239,5 +239,5 @@ if __name__ == '__main__':
 
     plot_all(data)
 
-    cumulant(BETA_INI)
-    cumulant(BETA_FIN)
+    # cumulant(BETA_INI)
+    # cumulant(BETA_FIN)

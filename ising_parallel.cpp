@@ -58,7 +58,7 @@ using namespace std;
 #define BETA_C_INI 0.41525
 #define BETA_C_FIN 0.44350
 // number of measures to save
-#define MEASURES 19800
+#define MEASURES 1000
 // decorrelation between measures
 #define I_DECORREL 10 // * V
 // initialization flags
