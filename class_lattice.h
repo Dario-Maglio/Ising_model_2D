@@ -13,18 +13,15 @@
 #include <fstream>
 #include <string>
 
-#include <chrono>
 #include <random>
 #include <cmath>
 #include <vector>
 
+
+
 using namespace std;
 
-#define SEED 42
-//random_device device;
-
-// Define precise constants
-constexpr double pi = 3.14159265358979323846;
+random_device device;
 
 //--- Contents -----------------------------------------------------------------
 
@@ -32,13 +29,13 @@ class lattice {
 
 private:
     int tot_lenght_;
-    vector<int> lattice_;
     vector<vector<int>> nearest_neighbors_;
 
     // Define the PRNG
     mt19937_64 generator_;
 
 public:
+    vector<int> latt_conf;
     const int side_lenght, geometry_flag, initial_flag;
 
     lattice(const int &SIDE, const int &G_FLAG, const int &I_FLAG):
@@ -63,7 +60,7 @@ public:
         initial_flag(I_FLAG)
         {// CONSTRUCTION BEGIN
 
-        mt19937_64 generator_(SEED);
+        mt19937_64 generator_(device());
 
         double random_number;
         vector<int> nearest_list;
@@ -71,7 +68,7 @@ public:
         // Defining topology and nearest neighbors
         if (geometry_flag == 1) {
             tot_lenght_ = side_lenght;
-            lattice_.reserve(tot_lenght_);
+            latt_conf.reserve(tot_lenght_);
             nearest_neighbors_.reserve(tot_lenght_);
             nearest_list.reserve(2);
 
@@ -97,7 +94,7 @@ public:
             nearest_list.clear();
         } else if (geometry_flag == 2) {
             tot_lenght_ = side_lenght * side_lenght;
-            lattice_.reserve(tot_lenght_);
+            latt_conf.reserve(tot_lenght_);
             nearest_neighbors_.reserve(tot_lenght_);
             nearest_list.reserve(4);
 
@@ -137,14 +134,14 @@ public:
 
         // Initialising the lattice configuration
         if (initial_flag == 0) {
-            for (int i = 0; i < tot_lenght_; i++) lattice_.push_back(1);
+            for (int i = 0; i < tot_lenght_; i++) latt_conf.push_back(1);
         } else {
             for (int i = 0; i < tot_lenght_; i++){
                 random_number = rand_double();
                 if (random_number < 0.5){
-                    lattice_.push_back(-1);
+                    latt_conf.push_back(-1);
                 } else {
-                    lattice_.push_back(1);
+                    latt_conf.push_back(1);
                 }
             }
         }
@@ -164,14 +161,38 @@ public:
         return random_flt(generator_);
     }
 
+    void update(double beta, double extfield){
+        /* Update the state of the lattice with a MC step */
+
+        int ind;
+        double random_number, force;
+
+        // Metropolis-Hastings algorithm per Ising
+        for(int it = 0; it < tot_lenght_; it++){
+           force = 0.;
+           ind = rand_int();
+           random_number = rand_double();
+
+           // MC step for the site with index ind
+           for(auto nn : nearest_neighbors_[ind]) force += latt_conf[nn];
+
+           force = beta * (force + extfield);
+
+           force = exp(-2.0 * force * latt_conf[ind]);
+
+           // accept or reject step
+           if (random_number < force) latt_conf[ind] = -latt_conf[ind];
+        }
+    }
+
     double energy(double extfield){
         /* Compute the energy of the present configuration */
 
         double sum, ener = 0.;
         for(int i = 0; i < tot_lenght_; i++) {
            sum = 0.;
-           for(auto nn : nearest_neighbors_[i]) sum += lattice_[nn];
-           ener += -0.5 * lattice_[i] * sum - extfield * lattice_[i];
+           for(auto nn : nearest_neighbors_[i]) sum += latt_conf[nn];
+           ener += -0.5 * latt_conf[i] * sum - extfield * latt_conf[i];
         }
         ener = ener / tot_lenght_;
         return ener;
@@ -181,35 +202,12 @@ public:
         /* Compute the magnetization of the present configuration */
 
         double sum = 0;
-        for(int i = 0; i < tot_lenght_; i++) sum += lattice_[i];
+        for(int i = 0; i < tot_lenght_; i++) sum += latt_conf[i];
         sum = sum / tot_lenght_;
         return sum;
     }
 
-    void show_configuration(){
-        /* Print the lattice configuration */
-
-        int value;
-        cout << "Lattice configuration: " << endl;
-        if (geometry_flag == 1){
-            for (int i = 0; i < tot_lenght_; i++){
-                value = lattice_[i];
-                if (value == -1) value = 0;
-                cout << value << " ";
-            }
-            cout << endl << endl;
-        } else if (geometry_flag == 2){
-            for (int i = 0; i < tot_lenght_; i++){
-                value = lattice_[i];
-                if (value == -1) value = 0;
-                cout << value << " ";
-                if ((i + 1) % side_lenght == 0){
-                    cout << endl;
-                }
-            }
-            cout << endl;
-        }
-    }
+    //--- Config methods -------------------------------------------------------
 
     void save_configuration(string file_state = "test_ising"){
         /* Save the current configuration of lattice and generator */
@@ -217,7 +215,7 @@ public:
         ofstream file;
         file.open(file_state + "_state.dat");
         for (int i = 0; i < tot_lenght_; i++){
-            file << lattice_[i] << endl;
+            file << latt_conf[i] << endl;
         }
         file.close();
 
@@ -245,7 +243,7 @@ public:
         ifstream file(file_state + "_state.dat");
         cout << "Loading initial configuration..." << endl;
         if (file.is_open()) {
-            while((file >> lattice_[i]) && (i < tot_lenght_)) i++;
+            while((file >> latt_conf[i]) && (i < tot_lenght_)) i++;
             file.close();
         } else {
             cerr << "Error: unable to open the file." << endl;
@@ -257,6 +255,33 @@ public:
             exit(1);
         }
 
+    }
+
+    //--- Show methods ---------------------------------------------------------
+
+    void show_configuration(){
+        /* Print the lattice configuration */
+
+        int value;
+        cout << "Lattice configuration: " << endl;
+        if (geometry_flag == 1){
+            for (int i = 0; i < tot_lenght_; i++){
+                value = latt_conf[i];
+                if (value == -1) value = 0;
+                cout << value << " ";
+            }
+            cout << endl << endl;
+        } else if (geometry_flag == 2){
+            for (int i = 0; i < tot_lenght_; i++){
+                value = latt_conf[i];
+                if (value == -1) value = 0;
+                cout << value << " ";
+                if ((i + 1) % side_lenght == 0){
+                    cout << endl;
+                }
+            }
+            cout << endl;
+        }
     }
 
     void show_nearest_index(const int &index){
@@ -278,30 +303,6 @@ public:
             cout << endl;
         }
         cout << endl;
-    }
-
-    void update(double beta, double extfield){
-        /* Update the state of the lattice with a MC step */
-
-        int ind;
-        double random_number, force;
-
-        // Metropolis-Hastings algorithm per Ising
-        for(int it = 0; it < tot_lenght_; it++){
-           force = 0.;
-           ind = rand_int();
-           random_number = rand_double();
-
-           // MC step for the site with index ind
-           for(auto nn : nearest_neighbors_[ind]) force += lattice_[nn];
-
-           force = beta * (force + extfield);
-
-           force = exp(-2.0 * force * lattice_[ind]);
-
-           // accept or reject step
-           if (random_number < force) lattice_[ind] = -lattice_[ind];
-        }
     }
 
 };

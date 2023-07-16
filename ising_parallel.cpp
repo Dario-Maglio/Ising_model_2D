@@ -61,9 +61,9 @@ using namespace std;
 // number of measures to save
 #define MEASURES 1000
 // decorrelation between measures
-#define I_DECORREL 10 // * V
+#define I_DECORREL 50 // * V
 // initialization flags
-#define I_FLAG 2
+#define I_FLAG 1
 #define G_FLAG 2
 // external field
 #define EXTFIELD 0.
@@ -94,7 +94,7 @@ void run_simulation(int side, float beta){
         ising.load_configuration(directory + name_file_state);
     } else {
         // Thermalization phase
-        for(int i = 0; i < (1000*I_DECORREL); i++) ising.update(beta, EXTFIELD);
+        for(int i = 0; i < (100*I_DECORREL); i++) ising.update(beta, EXTFIELD);
     }
 
     // Print initial energy and magnetization

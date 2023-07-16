@@ -4,10 +4,13 @@
 *
 *******************************************************************************/
 
+// g++ ../class_lattice.h test_lattice_class.cpp -o lattice.out
+
 //--- Preprocessor directives --------------------------------------------------
 
 #include <iostream>
 #include <string>
+
 #include <chrono>
 
 // Import the Class lattice
@@ -32,9 +35,9 @@ using namespace std;
 *
 *******************************************************************************/
 
-#define SIDE 50
+#define SIDE 70
 #define G_FLAG 2
-#define I_FLAG 2
+#define I_FLAG 1
 
 /*******************************************************************************
 * PARAMETERS OF THE SIMULATION
@@ -49,10 +52,10 @@ using namespace std;
 *
 *******************************************************************************/
 
-#define BETA 0.370
+#define BETA 0.450
 #define EXTFIELD 0.
 #define I_DECORREL 10
-#define LOOPS 1000
+#define LOOPS 10000
 
 //--- Main Test ----------------------------------------------------------------
 
