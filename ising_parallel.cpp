@@ -4,16 +4,17 @@
 *
 *******************************************************************************/
 
-// g++ ising_lattice_class.h ising_parallel.cpp -o parallel.out
+// g++ class_lattice.h ising_parallel.cpp -o parallel.out
 
 //--- Preprocessor directives --------------------------------------------------
 
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <vector>
-#include <thread>
+
 #include <chrono>
+#include <thread>
+#include <vector>
 
 // Import the Class lattice
 #include "class_lattice.h"

@@ -5,15 +5,16 @@
 *******************************************************************************/
 
 
-// g++ ising_lattice_class.h ising_main.cpp -o main.out
+// g++ class_lattice.h ising_main.cpp -o main.out
 
 //--- Preprocessor directives --------------------------------------------------
 
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <vector>
+
 #include <chrono>
+#include <vector>
 
 // Import the Class lattice
 #include "class_lattice.h"

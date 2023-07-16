@@ -8,12 +8,12 @@
 
 #include <iostream>
 #include <fstream>
-#include <chrono>
+#include <string>
 
+#include <chrono>
+#include <random>
 #include <cmath>
 #include <vector>
-#include <string>
-#include <random>
 
 using namespace std;
 
