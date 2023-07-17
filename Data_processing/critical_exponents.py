@@ -21,10 +21,10 @@ from critical_plots_subr import *
 #
 #*******************************************************************************
 
-interval_chi = {20:(10,45), 30:(13,57), 40:(32,58),
+interval_chi = {20:(10,45), 30:(19,57), 40:(32,58),
                 50:(38,62), 60:(43,62), 70:(45,62)}
-interval_cal = {20:(18,64), 30:(35,64), 40:(40,66),
-                50:(48,66), 60:(48,66), 70:(48,66)}
+interval_cal = {20:(24,58), 30:(38,64), 40:(45,69),
+                50:(48,66), 60:(51,70), 70:(53,71)}
 
 #--- Parabolic fit subroutines -------------------------------------------------
 
@@ -247,6 +247,6 @@ if __name__ == '__main__':
 
     #------ Finite size-scaling
     print("--- Study the finite size scaling -----------\n")
-    plot_chi_scaling(data, beta_cr.n, ratio_gamma_nu.n, nu_exp.n)
-    plot_mag_scaling(data, beta_cr.n, ratio_beta_nu.n, nu_exp.n)
-    plot_cal_scaling(data, beta_cr.n, parameters[0], nu_exp.n)
+    plot_chi_scaling(data, 0.44068, 7/4, 1)
+    plot_mag_scaling(data, 0.44068, 1/8, 1)
+    plot_cal_scaling(data, 0.44068, parameters, 1)

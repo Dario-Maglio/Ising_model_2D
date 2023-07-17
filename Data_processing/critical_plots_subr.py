@@ -77,7 +77,7 @@ def plot_par_chi(x, y, y_err, a, b, parameters, title):
     plt.legend(loc='lower right')
     path = os.path.join(plot_path, "Max_Sus")
     plt.savefig(os.path.join(path, title + ".png"))
-    #plt.show()
+    plt.show()
 
 def plot_par_cal(x, y, y_err, a, b, parameters, title):
     """ Plot parabolic fit for cal """
@@ -99,7 +99,7 @@ def plot_par_cal(x, y, y_err, a, b, parameters, title):
     plt.legend(loc='lower right')
     path = os.path.join(plot_path, "Max_Cal")
     plt.savefig(os.path.join(path, title + ".png"))
-    #plt.show()
+    plt.show()
 
 #--- Critical plot subroutines -------------------------------------------------
 
@@ -116,13 +116,13 @@ def plot_beta_critical(beta_pc, beta_er, parameters):
     # plot data and fit in function of beta
     fit_x = np.linspace(10, 80, 100)
     fit_y = fit_beta(fit_x, *parameters)
-    fit_label = r'fit y = c + a / x^(1/b)'
+    fit_label = r'fit y = a / x^(-1/b) + c'
     plt.plot(fit_x, fit_y, '-', label=fit_label)
     plt.errorbar(sides, beta_pc, yerr=beta_er, fmt='.', label=f'simulation')
     # legend, save and show
     plt.legend(loc='lower right')
     plt.savefig(os.path.join(plot_path, title + ".png"))
-    #plt.show()
+    plt.show()
 
 def plot_critical_chi(y_max, y_err, parameters):
     """ Plot chi_max as a function of L"""
@@ -137,14 +137,14 @@ def plot_critical_chi(y_max, y_err, parameters):
     # plot data and fit in function of beta
     fit_x = np.linspace(logsides[0], logsides[-1], 100)
     fit_y = fit_lin(fit_x, *parameters)
-    fit_label = f'fit logy = ratio * logL + c'
+    fit_label = f'fit logy = a * logL + c'
     plt.plot(fit_x, fit_y, '-', label=fit_label)
     sim_label = f'simulation data'
     plt.errorbar(logsides, y_max, yerr=y_err, fmt='<',label=sim_label)
     # legend, save and show
     plt.legend(loc='lower right')
     plt.savefig(os.path.join(plot_path, title + ".png"))
-    #plt.show()
+    plt.show()
 
 def plot_critical_mag(y_max, y_err, parameters):
     """ Plot magnetization as a function of L"""
@@ -159,14 +159,14 @@ def plot_critical_mag(y_max, y_err, parameters):
     # plot data and fit in function of beta
     fit_x = np.linspace(logsides[0], logsides[-1], 100)
     fit_y = fit_lin(fit_x, *parameters)
-    fit_label = f'fit logy = ratio * logL + c'
+    fit_label = f'fit logy = a * logL + c'
     plt.plot(fit_x, fit_y, '-', label=fit_label)
     sim_label = f'simulation data'
     plt.errorbar(logsides, y_max, yerr=y_err, fmt='<',label=sim_label)
     # legend, save and show
     plt.legend(loc='upper right')
     plt.savefig(os.path.join(plot_path, title + ".png"))
-    #plt.show()
+    plt.show()
 
 def plot_critical_cal(y_max, y_err, parameters):
     """ Plot cal_max as a function of L"""
@@ -181,14 +181,14 @@ def plot_critical_cal(y_max, y_err, parameters):
     # plot data and fit in function of beta
     fit_x = np.linspace(logsides[0], logsides[-1], 100)
     fit_y = fit_lin(fit_x, *parameters)
-    fit_label = f'fit y = c + a * logL'
+    fit_label = f'fit y = a * logL + c'
     plt.plot(fit_x, fit_y, '-', label=fit_label)
     sim_label = f'simulation data'
     plt.errorbar(logsides, y_max, yerr=y_err, fmt='<',label=sim_label)
     # legend, save and show
     plt.legend(loc='lower right')
     plt.savefig(os.path.join(plot_path, title + ".png"))
-    #plt.show()
+    plt.show()
 
 #--- Size-scaling subroutines --------------------------------------------------
 
@@ -213,7 +213,7 @@ def plot_chi_scaling(data, beta_c, ratio, nu):
     # save and show
     plt.legend(loc='upper right')
     plt.savefig(os.path.join(plot_path, title + ".png"))
-    #plt.show()
+    plt.show()
 
 def plot_mag_scaling(data, beta_c, ratio, nu):
     """ Plot magnetization scaling """
@@ -236,7 +236,7 @@ def plot_mag_scaling(data, beta_c, ratio, nu):
     # save and show
     plt.legend(loc='upper right')
     plt.savefig(os.path.join(plot_path, title + ".png"))
-    #plt.show()
+    plt.show()
 
 def plot_cal_scaling(data, beta_c, param, nu):
     """ Plot specific heat scaling """
@@ -247,16 +247,18 @@ def plot_cal_scaling(data, beta_c, param, nu):
     fig = plt.figure(title)
     plt.style.use('seaborn-whitegrid')
     plt.title(title)
-    plt.ylabel(r'$ C_V / log(L) + c $')
+    plt.ylabel(r'$ C_V - c / a log(L)$')
     plt.xlabel(r'$(\beta - \beta_c) L^{1 / \nu} $')
     # load and plot susceptibility in function of beta
+    a = param[0]
+    c = param[1]
     for side in sides:
         x, _, _, _, _, y, y_err, _, _ = data[side]
-        y = y / (param*np.log(side))
-        y_err = y_err / (param*np.log(side))
+        y = (y - c) / (c*np.log(side))
+        y_err = y_err / (c*np.log(side))
         x = (x - beta_c) * np.power(side, (1/nu))
         plt.errorbar(x, y, yerr=y_err, fmt='.', label=f'side = {side}')
     # save and show
     plt.legend(loc='upper right')
     plt.savefig(os.path.join(plot_path, title + ".png"))
-    #plt.show()
+    plt.show()
