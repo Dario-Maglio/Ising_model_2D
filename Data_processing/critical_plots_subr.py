@@ -29,15 +29,15 @@ plot_path = os.path.join("..", "Plots_and_fit")
 #--- Contents ------------------------------------------------------------------
 
 def fit_lin(x, a, c):
-    y = c + a * np.power(x, 1)
+    y = a * np.power(x, 1)  + c
     return y
 
 def fit_par(x, a, b, c):
-    y = c + a * np.power((x - b), 2)
+    y = a * np.power((x - b), 2) + c
     return y
 
 def fit_beta(x, a, b, c):
-    y = c + a / np.power(x, (1/b))
+    y = a / np.power(x, (1/b))  + c
     return y
 
 def load_data():

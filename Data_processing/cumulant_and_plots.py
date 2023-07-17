@@ -10,21 +10,17 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 
-#*******************************************************************************
-# PARAMETERS OF THE SIMULATION
-#
-# SIDE_SEP = separation between the sides of different simulations.
-#
-#*******************************************************************************
+CUMUL = 1
+PLOTS = 1
 
 SIDE_SEP = 10
 SIDE_MIN = 10
 SIDE_MAX = 70
-
-BETA_INI = 0.3800
-BETA_FIN = 0.4800
-
 sides = np.arange(SIDE_MIN, SIDE_MAX+1, SIDE_SEP, dtype='int')
+
+BETA_INI = 0.3600
+BETA_FIN = 0.4800
+MIN_IND_CUM = 2
 
 data_path = os.path.join("..", "Data_analysis")
 plot_path = os.path.join("..", "Plots_and_fit")
@@ -189,9 +185,9 @@ def cumulant(beta):
 
     #---Load points
     recL, cumulan, cum_err = load_cumulant(beta)
-    recL = 1 / recL[2:]
-    cumulan = cumulan[2:]
-    cum_err = cum_err[2:]
+    recL = 1 / recL[MIN_IND_CUM:]
+    cumulan = cumulan[MIN_IND_CUM:]
+    cum_err = cum_err[MIN_IND_CUM:]
 
     #---Fit
     parameters, covariance = curve_fit(fit_fun, recL, cumulan, sigma=cum_err)
@@ -222,7 +218,7 @@ def cumulant(beta):
     fit_y = fit_fun(fit_x, fit_a, fit_b)
     fit_label = f'fit {fit_b:.6f} ± {fit_db:.6f}'
     plt.plot(fit_x, fit_y, '-', label=fit_label)
-    sim_label = f'beta: {beta} | min side: {sides[2]}'
+    sim_label = f'beta: {beta} | min side: {sides[MIN_IND_CUM]}'
     plt.errorbar(recL, cumulan, yerr=cum_err, fmt='<',label=sim_label)
     # save and show
     plt.legend(loc='upper right')
@@ -235,12 +231,13 @@ if __name__ == '__main__':
 
     data = load_data()
 
-    plot_energy(data)
-    plot_specific_heat(data)
-    plot_magnetization(data)
-    plot_susceptibility(data)
+    if(PLOTS):
+        plot_energy(data)
+        plot_specific_heat(data)
+        plot_magnetization(data)
+        plot_susceptibility(data)
+        plot_all(data)
 
-    plot_all(data)
-
-    cumulant(BETA_INI)
-    cumulant(BETA_FIN)
+    if(CUMUL):
+        cumulant(BETA_INI)
+        cumulant(BETA_FIN)

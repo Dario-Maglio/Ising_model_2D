@@ -3,9 +3,9 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 
-side = 70
-beta = 0.440000
-DIM = 200000
+side = 30
+beta = 0.480
+DIM = 1500
 
 #-------------------------------------------------------------------------------
 
@@ -31,7 +31,7 @@ def plot_metropolis():
     if os.path.isfile(file):
         ene, mag = np.loadtxt(file, unpack='True')
         axes[0].plot(x, ene[:DIM])
-        axes[1].plot(x, abs(mag[:DIM]))
+        axes[1].plot(x, mag[:DIM])
 
     print("\nPlots of energy and magnetization: \n")
     plt.show()

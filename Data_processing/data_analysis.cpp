@@ -4,6 +4,8 @@
 *
 *******************************************************************************/
 
+// g++ data_analysis.cpp -o analysis.out
+
 //--- Preprocessor directives --------------------------------------------------
 
 #include <iostream>
@@ -18,8 +20,15 @@
 using namespace std;
 
 // Define the PRNG
-#define SEED 42
+#define SEED 3
 mt19937_64 generator(SEED);
+
+// flags and macro for the main
+#define DATA 8
+#define ANA_COMPLET 0
+#define ANA_PARTIAL 1
+#define ANA_CUM_MIN 0
+#define ANA_CUM_MAX 0
 
 /*******************************************************************************
 * PARAMETERS OF THE SIMULATION
@@ -28,15 +37,12 @@ mt19937_64 generator(SEED);
 *
 * SIDE_SEP = separation between the sides of different simulations.
 *
-* BETA_CUM = beta used to produce cumulant data and plots.
-*
 *******************************************************************************/
 
-#define DATA 8
+// define data to study
 #define SIDE_SEP 10
 #define SIDE_MIN 10
 #define SIDE_MAX 70
-
 // define outer betas -> 24 points
 #define BETA_SEP 0.0050
 #define BETA_INI 0.3600
@@ -45,9 +51,6 @@ mt19937_64 generator(SEED);
 #define BETA_C_SEP 0.00050
 #define BETA_C_INI 0.41525
 #define BETA_C_FIN 0.44350
-// define cumulant betas
-#define BETA_CUM_MIN 0.3800
-#define BETA_CUM_MAX 0.4800
 
 /*******************************************************************************
 * PARAMETERS OF THE ANALYSIS
@@ -62,13 +65,18 @@ mt19937_64 generator(SEED);
 *
 * DIM_FAKE_SAMP = dimension of the fake samples in the bootstrap algorithm.
 *
+* THERMALIZATION = number of rejected data in the initial sample.
+*
 *******************************************************************************/
 
 #define BLOCKS 7
 #define MIN_CORR_LENGHT 1
-#define MAX_CORR_LENGHT 512
-#define NUM_FAKE_SAMP 10
+#define MAX_CORR_LENGHT 2048
+#define NUM_FAKE_SAMP 150
 #define DIM_FAKE_SAMP 150000
+#define THERMALIZATION 5000
+
+
 
 //--- Contents -----------------------------------------------------------------
 
@@ -217,11 +225,19 @@ void file_operations(int side, float beta, vector<double>& data, ofstream &file_
         // load data and compute averages
         while (file >> ene >> mag){
             measures++;
-            mag = abs(mag);
-            ene_ave += ene;
-            mag_ave += mag;
-            energies.push_back(ene);
-            magnetis.push_back(mag);
+            if(side != 70){
+                mag = abs(mag);
+                ene_ave += ene;
+                mag_ave += mag;
+                energies.push_back(ene);
+                magnetis.push_back(mag);
+            } else if(measures > THERMALIZATION){
+                mag = abs(mag);
+                ene_ave += ene;
+                mag_ave += mag;
+                energies.push_back(ene);
+                magnetis.push_back(mag);
+            }
         }
         file.close();
 
@@ -231,6 +247,7 @@ void file_operations(int side, float beta, vector<double>& data, ofstream &file_
         file_analysis << "-----------------------------" << endl;
 
         // compute and store the averages
+        if(side == 70) measures = measures - THERMALIZATION;
         ene_ave = ene_ave / measures;
         mag_ave = mag_ave / measures;
         data[0] = ene_ave;
@@ -266,7 +283,7 @@ void file_operations(int side, float beta, vector<double>& data, ofstream &file_
 void cumulant_analysis(float beta){
     /* Compute Binder Cumulant and its error */
 
-    int index;
+    int measures = 0;
     double ene, mag;
     string file_path, file_name;
     vector<double> magnetis;
@@ -292,16 +309,11 @@ void cumulant_analysis(float beta){
 
         if (file.is_open()) {
             // load data and compute averages
-            index = 0;
             while (file >> ene >> mag){
-                if(side > 30){
-                    index++;
-                    if(index > 20000){
-                        mag = abs(mag);
-                        magnetis.push_back(mag);
-                    }
-                } else {
-                    mag = abs(mag);
+                measures++;
+                if(side != 70){
+                    magnetis.push_back(mag);
+                } else if(measures > THERMALIZATION) {
                     magnetis.push_back(mag);
                 }
             }
@@ -432,10 +444,12 @@ int main(){
     /* Main program for the data analysis. */
 
     auto start = chrono::steady_clock::now();
-    // partial_analysis();
-    // complete_analysis();
-    // cumulant_analysis(BETA_CUM_MIN);
-    cumulant_analysis(BETA_CUM_MAX);
+
+    if(ANA_PARTIAL) partial_analysis();
+    if(ANA_COMPLET) complete_analysis();
+    if(ANA_CUM_MIN) cumulant_analysis(BETA_INI);
+    if(ANA_CUM_MAX) cumulant_analysis(BETA_FIN);
+
     auto end = chrono::steady_clock::now();
 
     chrono::duration<double> elapsed_seconds = end - start;

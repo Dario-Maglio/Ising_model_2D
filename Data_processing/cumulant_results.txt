@@ -15,21 +15,21 @@ Plot susceptibility
 
 Plots from analysis
 
-Loading ../Data_analysis/cumulant_beta_0.380000_data.dat
+Loading ../Data_analysis/cumulant_beta_0.360000_data.dat
 
 Fit parameters:
--223.7970021357573 ± 6.537340387236272
-2.9992704042408365 ± 0.004790168605747019
-Reduced chi squared: 0.23378994346311682
+-123.11852368957797 ± 12.294286469575665
+2.9944513238897357 ± 0.007915850862413846
+Reduced chi squared: 0.7529577361914672
 
-Plot Binder cumulant beta = 0.380000
+Plot Binder cumulant beta = 0.360000
 
 Loading ../Data_analysis/cumulant_beta_0.480000_data.dat
 
 Fit parameters:
-7.670398435334065 ± 0.1383774251023116
-1.0001653879012935 ± 3.778663281172192e-05
-Reduced chi squared: 2.3296369862650783
+7.655270640021118 ± 0.13606955497779982
+1.0001725410437348 ± 3.988267003574589e-05
+Reduced chi squared: 2.7343795597721927
 
 Plot Binder cumulant beta = 0.480000
 
