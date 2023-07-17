@@ -18,13 +18,16 @@ from scipy.optimize import curve_fit
 #*******************************************************************************
 
 SIDE_SEP = 10
-SIDE_MIN = 30
+SIDE_MIN = 10
 SIDE_MAX = 70
 
 BETA_INI = 0.3800
 BETA_FIN = 0.4800
 
 sides = np.arange(SIDE_MIN, SIDE_MAX+1, SIDE_SEP, dtype='int')
+
+data_path = os.path.join("..", "Data_analysis")
+plot_path = os.path.join("..", "Plots_and_fit")
 
 #--- Contents ------------------------------------------------------------------
 
@@ -39,7 +42,7 @@ def load_data():
     for side in sides:
         # define data file path
         filename = f"side_{side}_data.dat"
-        file_path = os.path.join("Data_analysis", filename)
+        file_path = os.path.join(data_path, filename)
         print("Loading " + file_path)
         # load data from each side file
         if os.path.isfile(file_path):
@@ -52,7 +55,7 @@ def load_cumulant(beta):
 
     # define data file path
     filename = f"cumulant_beta_{beta:.6f}_data.dat"
-    file_path = os.path.join("Data_analysis", filename)
+    file_path = os.path.join(data_path, filename)
     print("Loading " + file_path)
     # load data from each side file
     if not os.path.isfile(file_path):
@@ -80,7 +83,7 @@ def plot_susceptibility(data):
         plt.errorbar(x, y, yerr=y_err, fmt='.', label=f'side = {side}')
     # save and show
     plt.legend(loc='upper right')
-    plt.savefig(os.path.join("Plots_and_fit", title + ".png"))
+    plt.savefig(os.path.join(plot_path, title + ".png"))
     plt.show()
 
 def plot_magnetization(data):
@@ -100,7 +103,7 @@ def plot_magnetization(data):
         plt.errorbar(x, y, yerr=y_err, fmt='.', label=f'side = {side}')
     # save and show
     plt.legend(loc='lower right')
-    plt.savefig(os.path.join("Plots_and_fit", title + ".png"))
+    plt.savefig(os.path.join(plot_path, title + ".png"))
     plt.show()
 
 def plot_energy(data):
@@ -120,7 +123,7 @@ def plot_energy(data):
         plt.errorbar(x, y, yerr=y_err, fmt='.', label=f'side = {side}')
     # save and show
     plt.legend(loc='upper right')
-    plt.savefig(os.path.join("Plots_and_fit", title + ".png"))
+    plt.savefig(os.path.join(plot_path, title + ".png"))
     plt.show()
 
 def plot_specific_heat(data):
@@ -140,7 +143,7 @@ def plot_specific_heat(data):
         plt.errorbar(x, y, yerr=y_err, fmt='.', label=f'side = {side}')
     # save and show
     plt.legend(loc='upper right')
-    plt.savefig(os.path.join("Plots_and_fit", title + ".png"))
+    plt.savefig(os.path.join(plot_path, title + ".png"))
     plt.show()
 
 def plot_all(data):
@@ -176,7 +179,7 @@ def plot_all(data):
         axes[1, 1].errorbar(betas, chi, yerr=chi_err, fmt='.', label=f'side = {side}')
     # legend, save and show
     axes[0, 0].legend(loc='lower left')
-    plt.savefig(os.path.join("Plots_and_fit", title + ".png"))
+    plt.savefig(os.path.join(plot_path, title + ".png"))
     plt.show()
 
 #--- Cumulant ------------------------------------------------------------------
@@ -223,7 +226,7 @@ def cumulant(beta):
     plt.errorbar(recL, cumulan, yerr=cum_err, fmt='<',label=sim_label)
     # save and show
     plt.legend(loc='upper right')
-    plt.savefig(os.path.join("Plots_and_fit", title + ".png"))
+    plt.savefig(os.path.join(plot_path, title + ".png"))
     plt.show()
 
 #-------------------------------------------------------------------------------
@@ -239,5 +242,5 @@ if __name__ == '__main__':
 
     plot_all(data)
 
-    # cumulant(BETA_INI)
-    # cumulant(BETA_FIN)
+    cumulant(BETA_INI)
+    cumulant(BETA_FIN)

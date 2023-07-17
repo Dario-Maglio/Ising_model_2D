@@ -79,7 +79,6 @@ def parabolic_fit_chi(data):
         chi_err.append(y_max.std_dev)
         # plot data and fit
         title = f"Fit max susceptibility side: {side} "
-        print(title + "\n")
         plot_par_chi(x, y, y_err, a, b, parameters, title)
 
     return beta_pc, beta_er, chi_max, chi_err

@@ -23,6 +23,9 @@ SIDE_SEP = 10
 sides = np.arange(SIDE_MIN, SIDE_MAX + 1, SIDE_SEP, dtype='int')
 logsides = np.log(sides)
 
+data_path = os.path.join("..", "Data_analysis")
+plot_path = os.path.join("..", "Plots_and_fit")
+
 #--- Contents ------------------------------------------------------------------
 
 def fit_lin(x, a, c):
@@ -44,7 +47,7 @@ def load_data():
     for side in sides:
         # define data file path
         filename = f"side_{side}_data.dat"
-        file_path = os.path.join("Data_analysis", filename)
+        file_path = os.path.join(data_path, filename)
         print("Loading " + file_path)
         # load data from each side file
         if os.path.isfile(file_path):
@@ -72,7 +75,7 @@ def plot_par_chi(x, y, y_err, a, b, parameters, title):
     plt.errorbar(x, y, yerr=y_err, fmt='.', label=f'simulation')
     # legend, save and show
     plt.legend(loc='lower right')
-    path = os.path.join("Plots_and_fit", "Max_Sus")
+    path = os.path.join(plot_path, "Max_Sus")
     plt.savefig(os.path.join(path, title + ".png"))
     #plt.show()
 
@@ -94,7 +97,7 @@ def plot_par_cal(x, y, y_err, a, b, parameters, title):
     plt.errorbar(x, y, yerr=y_err, fmt='.', label=f'simulation')
     # legend, save and show
     plt.legend(loc='lower right')
-    path = os.path.join("Plots_and_fit", "Max_Cal")
+    path = os.path.join(plot_path, "Max_Cal")
     plt.savefig(os.path.join(path, title + ".png"))
     #plt.show()
 
@@ -118,7 +121,7 @@ def plot_beta_critical(beta_pc, beta_er, parameters):
     plt.errorbar(sides, beta_pc, yerr=beta_er, fmt='.', label=f'simulation')
     # legend, save and show
     plt.legend(loc='lower right')
-    plt.savefig(os.path.join("Plots_and_fit", title + ".png"))
+    plt.savefig(os.path.join(plot_path, title + ".png"))
     #plt.show()
 
 def plot_critical_chi(y_max, y_err, parameters):
@@ -140,7 +143,7 @@ def plot_critical_chi(y_max, y_err, parameters):
     plt.errorbar(logsides, y_max, yerr=y_err, fmt='<',label=sim_label)
     # legend, save and show
     plt.legend(loc='lower right')
-    plt.savefig(os.path.join("Plots_and_fit", title + ".png"))
+    plt.savefig(os.path.join(plot_path, title + ".png"))
     #plt.show()
 
 def plot_critical_mag(y_max, y_err, parameters):
@@ -162,7 +165,7 @@ def plot_critical_mag(y_max, y_err, parameters):
     plt.errorbar(logsides, y_max, yerr=y_err, fmt='<',label=sim_label)
     # legend, save and show
     plt.legend(loc='upper right')
-    plt.savefig(os.path.join("Plots_and_fit", title + ".png"))
+    plt.savefig(os.path.join(plot_path, title + ".png"))
     #plt.show()
 
 def plot_critical_cal(y_max, y_err, parameters):
@@ -184,7 +187,7 @@ def plot_critical_cal(y_max, y_err, parameters):
     plt.errorbar(logsides, y_max, yerr=y_err, fmt='<',label=sim_label)
     # legend, save and show
     plt.legend(loc='lower right')
-    plt.savefig(os.path.join("Plots_and_fit", title + ".png"))
+    plt.savefig(os.path.join(plot_path, title + ".png"))
     #plt.show()
 
 #--- Size-scaling subroutines --------------------------------------------------
@@ -209,7 +212,7 @@ def plot_chi_scaling(data, beta_c, ratio, nu):
         plt.errorbar(x, y, yerr=y_err, fmt='.', label=f'side = {side}')
     # save and show
     plt.legend(loc='upper right')
-    plt.savefig(os.path.join("Plots_and_fit", title + ".png"))
+    plt.savefig(os.path.join(plot_path, title + ".png"))
     #plt.show()
 
 def plot_mag_scaling(data, beta_c, ratio, nu):
@@ -232,7 +235,7 @@ def plot_mag_scaling(data, beta_c, ratio, nu):
         plt.errorbar(x, y, yerr=y_err, fmt='.', label=f'side = {side}')
     # save and show
     plt.legend(loc='upper right')
-    plt.savefig(os.path.join("Plots_and_fit", title + ".png"))
+    plt.savefig(os.path.join(plot_path, title + ".png"))
     #plt.show()
 
 def plot_cal_scaling(data, beta_c, param, nu):
@@ -255,5 +258,5 @@ def plot_cal_scaling(data, beta_c, param, nu):
         plt.errorbar(x, y, yerr=y_err, fmt='.', label=f'side = {side}')
     # save and show
     plt.legend(loc='upper right')
-    plt.savefig(os.path.join("Plots_and_fit", title + ".png"))
+    plt.savefig(os.path.join(plot_path, title + ".png"))
     #plt.show()

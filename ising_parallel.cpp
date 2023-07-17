@@ -48,7 +48,7 @@ using namespace std;
 
 // sides to simulate
 #define SIDE_SEP 10
-#define SIDE_MIN 40
+#define SIDE_MIN 10
 #define SIDE_MAX 70
 // outer betas -> 24 points
 #define BETA_SEP 0.0050
@@ -61,9 +61,9 @@ using namespace std;
 // number of measures to save
 #define MEASURES 1000
 // decorrelation between measures
-#define I_DECORREL 50 // * V
+#define I_DECORREL 10 // * V
 // initialization flags
-#define I_FLAG 1
+#define I_FLAG 2
 #define G_FLAG 2
 // external field
 #define EXTFIELD 0.

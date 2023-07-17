@@ -66,8 +66,8 @@ mt19937_64 generator(SEED);
 
 #define BLOCKS 7
 #define MIN_CORR_LENGHT 1
-#define MAX_CORR_LENGHT 2048 // for side > 30
-#define NUM_FAKE_SAMP 150
+#define MAX_CORR_LENGHT 512
+#define NUM_FAKE_SAMP 10
 #define DIM_FAKE_SAMP 150000
 
 //--- Contents -----------------------------------------------------------------
@@ -209,7 +209,7 @@ void file_operations(int side, float beta, vector<double>& data, ofstream &file_
     string file_name;
     vector<double> energies, magnetis;
 
-    file_name = "Data_simulations/Side_" + to_string(side) + "/side_";
+    file_name = "../Data_simulations/Side_" + to_string(side) + "/side_";
     file_name += to_string(side) + "_beta_" + to_string(beta) + ".dat";
     ifstream file(file_name);
 
@@ -266,13 +266,14 @@ void file_operations(int side, float beta, vector<double>& data, ofstream &file_
 void cumulant_analysis(float beta){
     /* Compute Binder Cumulant and its error */
 
+    int index;
     double ene, mag;
     string file_path, file_name;
     vector<double> magnetis;
     ofstream file_data, file_analysis;
 
     // define the output path of the files
-    file_path = "Data_analysis/cumulant_beta_" + to_string(beta);
+    file_path = "../Data_analysis/cumulant_beta_" + to_string(beta);
     // open the data and logging files
     file_name =  file_path + "_analysis.txt";
     cout << "Creating file: " << file_name << endl;
@@ -285,15 +286,24 @@ void cumulant_analysis(float beta){
     for(int side = SIDE_MIN; side <= SIDE_MAX; side += SIDE_SEP){
 
         // open the simulation data file
-        file_name = "Data_simulations/Side_" + to_string(side) + "/side_";
+        file_name = "../Data_simulations/Side_" + to_string(side) + "/side_";
         file_name += to_string(side) + "_beta_" + to_string(beta) + ".dat";
         ifstream file(file_name);
 
         if (file.is_open()) {
             // load data and compute averages
+            index = 0;
             while (file >> ene >> mag){
-                mag = abs(mag);
-                magnetis.push_back(mag);
+                if(side > 30){
+                    index++;
+                    if(index > 20000){
+                        mag = abs(mag);
+                        magnetis.push_back(mag);
+                    }
+                } else {
+                    mag = abs(mag);
+                    magnetis.push_back(mag);
+                }
             }
             file.close();
 
@@ -340,7 +350,7 @@ void partial_analysis(){
     cout << "Insert side lenght: ";
     cin >>  side_in;
     cout << endl;
-    file_path = "Data_analysis/side_" + to_string(side_in);
+    file_path = "../Data_analysis/side_" + to_string(side_in);
     // open the data and logging files
     file_name =  file_path + "_analysis.txt";
     cout << "Creating file: " << file_name << endl;
@@ -386,7 +396,7 @@ void complete_analysis(){
     for(int side = SIDE_MIN; side <= SIDE_MAX; side += SIDE_SEP){
 
         // define the path
-        file_path = "Data_analysis/side_" + to_string(side);
+        file_path = "../Data_analysis/side_" + to_string(side);
         // open the data and logging files
         file_name =  file_path + "_analysis.txt";
         cout << "Creating file: " << file_name << endl;
@@ -424,7 +434,7 @@ int main(){
     auto start = chrono::steady_clock::now();
     // partial_analysis();
     // complete_analysis();
-    cumulant_analysis(BETA_CUM_MIN);
+    // cumulant_analysis(BETA_CUM_MIN);
     cumulant_analysis(BETA_CUM_MAX);
     auto end = chrono::steady_clock::now();
 

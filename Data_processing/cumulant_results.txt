@@ -1,0 +1,35 @@
+Loading ../Data_analysis/side_10_data.dat
+Loading ../Data_analysis/side_20_data.dat
+Loading ../Data_analysis/side_30_data.dat
+Loading ../Data_analysis/side_40_data.dat
+Loading ../Data_analysis/side_50_data.dat
+Loading ../Data_analysis/side_60_data.dat
+Loading ../Data_analysis/side_70_data.dat
+Plot energy density
+
+Plot specific heat
+
+Plot magnetization
+
+Plot susceptibility
+
+Plots from analysis
+
+Loading ../Data_analysis/cumulant_beta_0.380000_data.dat
+
+Fit parameters:
+-223.7970021357573 ± 6.537340387236272
+2.9992704042408365 ± 0.004790168605747019
+Reduced chi squared: 0.23378994346311682
+
+Plot Binder cumulant beta = 0.380000
+
+Loading ../Data_analysis/cumulant_beta_0.480000_data.dat
+
+Fit parameters:
+7.670398435334065 ± 0.1383774251023116
+1.0001653879012935 ± 3.778663281172192e-05
+Reduced chi squared: 2.3296369862650783
+
+Plot Binder cumulant beta = 0.480000
+

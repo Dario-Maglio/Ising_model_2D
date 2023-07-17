@@ -165,13 +165,12 @@ public:
         /* Update the state of the lattice with a MC step */
 
         int ind;
-        double random_number, force;
+        double force;
 
         // Metropolis-Hastings algorithm per Ising
         for(int it = 0; it < tot_lenght_; it++){
            force = 0.;
            ind = rand_int();
-           random_number = rand_double();
 
            // MC step for the site with index ind
            for(auto nn : nearest_neighbors_[ind]) force += latt_conf[nn];
@@ -181,7 +180,7 @@ public:
            force = exp(-2.0 * force * latt_conf[ind]);
 
            // accept or reject step
-           if (random_number < force) latt_conf[ind] = -latt_conf[ind];
+           if (force > rand_double()) latt_conf[ind] = -latt_conf[ind];
         }
     }
 
