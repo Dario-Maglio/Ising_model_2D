@@ -64,4 +64,6 @@ Feel free to explore the repository and use the provided programs for further an
 License
 =======
 
-This repository is licensed under the GNU General Public License v3.0 (GPL-3.0). See the LICENSE file for more information.
+This repository is licensed under the GNU General Public License v3.0 (GPL-3.0). 
+
+See the LICENSE file for more information.
