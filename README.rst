@@ -2,14 +2,10 @@
 Ising Model 2D
 ==============
 
-.. class:: justify
-
 In this repository, we present the study of the two-dimensional classical Ising model through numerical simulation. By implementing the Monte Carlo method, we obtain the characteristic quantities of the system and analyze their behaviour around the ferromagnetic phase transition. We determine critical exponents and examine the effect of finite-size scaling.
 
 Repository Structure
 ====================
-
-.. class:: justify
 
 The structure of the repository is as follows:
 
