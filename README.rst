@@ -9,6 +9,8 @@ In this repository, we present the study of the two-dimensional classical Ising 
 Repository Structure
 ====================
 
+.. class:: justify
+
 The structure of the repository is as follows:
 
 - ``class_lattice.h``:
