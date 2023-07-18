@@ -9,7 +9,7 @@ Repository Structure
 
 The structure of the repository is as follows:
 
-- ``class_lattice.h``: \
+- ``class_lattice.h``: \.
   This header contains the lattice class from which the Ising lattice is instantiated. The class includes a Metropolis update method and an incorporated Pseudo Random Number Generator.
 
 - ``main_*.cpp``: \
