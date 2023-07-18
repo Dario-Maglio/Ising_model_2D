@@ -21,17 +21,17 @@ The structure of the repository is as follows:
 
   This program, located in the ``Data_processing`` directory, computes the quantities of interest and their errors. The computation and error analysis results are stored in the ``Data_analysis`` folder.
 
-- ``plot_and_cumulant.py`` and ``critical_exponents.py``:
+- ``cumulant_and_plots.py`` and ``critical_exponents.py``:
 
   These programs, also located in the ``Data_processing`` directory, utilize the data in the ``Data_analysis`` folder to plot the physical quantities and fit the cumulant and critical exponents. The fit parameters and their errors are stored in the ``cumulant_results.txt`` and ``critical_exponents.txt`` files.
+
+- ``Plots_and_fit``:
+
+  All produced plots are stored in this folder. Here we can find plots of the main physical quantities, scaling relations and Binder cumulant.
 
 - ``Tests``:
 
   This directory contains easy-to-use examples for testing the lattice class and verifying that the Monte Carlo algorithm has thermalized.
-
-- ``Plots_and_fit``:
-
-  All produced plots are stored in this folder.
 
 Analysis Results
 ================
