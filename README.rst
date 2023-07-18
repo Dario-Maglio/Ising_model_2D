@@ -9,17 +9,23 @@ Repository Structure
 
 The structure of the repository is as follows:
 
-- ``class_lattice.h``: \. This header contains the lattice class from which the Ising lattice is instantiated. The class includes a Metropolis update method and an incorporated Pseudo Random Number Generator.
+- ``class_lattice.h``: \
+This header contains the lattice class from which the Ising lattice is instantiated. The class includes a Metropolis update method and an incorporated Pseudo Random Number Generator.
 
-- ``main_*.cpp``: \. These programs call the simulation subroutine for all betas and sides, collecting average energy and magnetization measures in the ``Data_simulations`` folder.
+- ``main_*.cpp``: \
+These programs call the simulation subroutine for all betas and sides, collecting average energy and magnetization measures in the ``Data_simulations`` folder.
 
-- ``data_analysis.cpp``: \. This program, located in the ``Data_processing`` directory, computes the quantities of interest and their errors. The computation and error analysis results are stored in the ``Data_analysis`` folder.
+- ``data_analysis.cpp``: \
+This program, located in the ``Data_processing`` directory, computes the quantities of interest and their errors. The computation and error analysis results are stored in the ``Data_analysis`` folder.
 
-- ``plot_and_cumulant.py`` and ``critical_exponents.py``: \. These programs, also located in the ``Data_processing`` directory, utilize the data in the ``Data_analysis`` folder to plot the physical quantities and fit the cumulant and critical exponents. The fit parameters and their errors are stored in the ``cumulant_results.txt`` and ``critical_exponents.txt`` files.
+- ``plot_and_cumulant.py`` and ``critical_exponents.py``: \
+These programs, also located in the ``Data_processing`` directory, utilize the data in the ``Data_analysis`` folder to plot the physical quantities and fit the cumulant and critical exponents. The fit parameters and their errors are stored in the ``cumulant_results.txt`` and ``critical_exponents.txt`` files.
 
-- ``Tests``: \. This directory contains easy-to-use examples for testing the lattice class and verifying that the Monte Carlo algorithm has thermalized.
+- ``Tests``: \
+This directory contains easy-to-use examples for testing the lattice class and verifying that the Monte Carlo algorithm has thermalized.
 
-- ``Plots_and_fit``: \. All produced plots are stored in this folder.
+- ``Plots_and_fit``: \
+All produced plots are stored in this folder.
 
 Analysis Results
 ================
@@ -30,6 +36,7 @@ Here are some of the plots generated from the analysis:
 
   .. image:: https://github.com/Dario-Maglio/Ising_model_2D/blob/068471897db23d22a6fe0203f327ce824c5c2503/Plots_and_fit/Plots%20from%20analysis.png
      :align: center
+     :width: 70%
 
 - Susceptibility scaling plot:
 
