@@ -10,22 +10,22 @@ Repository Structure
 The structure of the repository is as follows:
 
 - ``class_lattice.h``: \
-This header contains the lattice class from which the Ising lattice is instantiated. The class includes a Metropolis update method and an incorporated Pseudo Random Number Generator.
+  This header contains the lattice class from which the Ising lattice is instantiated. The class includes a Metropolis update method and an incorporated Pseudo Random Number Generator.
 
 - ``main_*.cpp``: \
-These programs call the simulation subroutine for all betas and sides, collecting average energy and magnetization measures in the ``Data_simulations`` folder.
+  These programs call the simulation subroutine for all betas and sides, collecting average energy and magnetization measures in the ``Data_simulations`` folder.
 
 - ``data_analysis.cpp``: \
-This program, located in the ``Data_processing`` directory, computes the quantities of interest and their errors. The computation and error analysis results are stored in the ``Data_analysis`` folder.
+  This program, located in the ``Data_processing`` directory, computes the quantities of interest and their errors. The computation and error analysis results are stored in the ``Data_analysis`` folder.
 
 - ``plot_and_cumulant.py`` and ``critical_exponents.py``: \
-These programs, also located in the ``Data_processing`` directory, utilize the data in the ``Data_analysis`` folder to plot the physical quantities and fit the cumulant and critical exponents. The fit parameters and their errors are stored in the ``cumulant_results.txt`` and ``critical_exponents.txt`` files.
+  These programs, also located in the ``Data_processing`` directory, utilize the data in the ``Data_analysis`` folder to plot the physical quantities and fit the cumulant and critical exponents. The fit parameters and their errors are stored in the ``cumulant_results.txt`` and ``critical_exponents.txt`` files.
 
 - ``Tests``: \
-This directory contains easy-to-use examples for testing the lattice class and verifying that the Monte Carlo algorithm has thermalized.
+  This directory contains easy-to-use examples for testing the lattice class and verifying that the Monte Carlo algorithm has thermalized.
 
 - ``Plots_and_fit``: \
-All produced plots are stored in this folder.
+  All produced plots are stored in this folder.
 
 Analysis Results
 ================
