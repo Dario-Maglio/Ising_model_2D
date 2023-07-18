@@ -1,23 +1,54 @@
-Ising model 2D
+==============
+Ising Model 2D
 ==============
 
-In the present repository, we study the two-dimensional classical Ising
-model via Monte Carlo simulation. In particular, we analyze the behaviour of the
-system around the phase transition, verifying the effect of finite-size scaling
-and deriving the critical exponents.
+In this repository, we present the study of the two-dimensional classical Ising model through numerical simulation. By implementing the Monte Carlo method, we obtain the characteristic quantities of the system and analyze their behavior around the ferromagnetic phase transition. We determine critical exponents and examine the effect of finite-size scaling.
 
-The scheme of the repository is the following:
+Repository Structure
+====================
 
-- ising_lattice_class.h contains the lattice class from which the ising lattice is instantiated. The class has a Metropolis update method and an incorporated Pseudo Random Number Generator.
+The structure of the repository is as follows:
 
-- ising_run_simulation.h contains the subroutine that generates the data in the Data_simulations folder. In particular, for every given side and beta, it generates a file with the measures of <e> and <m>.
+- ``class_lattice.h``: This header contains the lattice class from which the Ising lattice is instantiated. The class includes a Metropolis update method and an incorporated Pseudo Random Number Generator.
 
-- main_*.cpp calls the simulation subroutine in ising_run_simulation.h for all betas and sides.
+- ``main_*.cpp``: These programs call the simulation subroutine for all betas and sides, collecting average energy and magnetization measures in the ``Data_simulations`` folder.
 
-- data_analysis.cpp produces the error analysis and save the results in the Data_analysis folder.
+- ``data_analysis.cpp``: This program, located in the ``Data_processing`` directory, computes the quantities of interest and their errors. The computation and error analysis results are stored in the ``Data_analysis`` folder.
 
-- plot_and_cumulant.py uses the data in the Data_analysis folder to plot all of the physical quantities.
+- ``plot_and_cumulant.py`` and ``critical_exponents.py``: These programs, also located in the ``Data_processing`` directory, utilize the data in the ``Data_analysis`` folder to plot the physical quantities and fit the cumulant and critical exponents. The fit parameters and their errors are stored in the ``cumulant_results.txt`` and ``critical_exponents.txt`` files.
 
-- critical_exp.py uses the data in the Data_analysis folder to compute the critical point and exponents. It also produces plots of the performed fits. The last output is shown in the critical_analysis.txt file.
+- ``Tests``: This directory contains easy-to-use examples for testing the lattice class and verifying that the Monte Carlo algorithm has thermalized.
 
-Easy to use examples are given in the test folder.
+- ``Plots_and_fit``: All produced plots are stored in this folder.
+
+Analysis Results
+================
+
+Here are some of the plots generated from the analysis:
+
+- Plot of the main physical quantities:
+
+  .. image:: Plots_and_fit/Plots from analysis.png
+     :align: center
+
+- Susceptibility Plot:
+
+  .. image:: Plots_and_fit/Plot scaling susceptibility.png
+     :align: center
+
+- Fit to find the critical point:
+
+  .. image:: Plots_and_fit/Fit beta_pc as a function of L.png
+     :align: center
+
+- Binder cumulant:
+
+  .. image:: Plots_and_fit/Binder cumulant beta = 0.360000.png
+     :align: center
+
+Feel free to explore the repository and use the provided programs for further analysis and investigation.
+
+License
+=======
+
+This repository is licensed under the GNU General Public License v3.0 (GPL-3.0). See the LICENSE file for more information.
