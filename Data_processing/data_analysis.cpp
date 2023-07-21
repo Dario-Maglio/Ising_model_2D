@@ -26,9 +26,9 @@ mt19937_64 generator(SEED);
 // flags and macro for the main
 #define DATA 8
 #define ANA_COMPLET 0
-#define ANA_PARTIAL 1
+#define ANA_PARTIAL 0
 #define ANA_CUM_MIN 0
-#define ANA_CUM_MAX 0
+#define ANA_CUM_MAX 1
 
 /*******************************************************************************
 * PARAMETERS OF THE SIMULATION
@@ -42,7 +42,7 @@ mt19937_64 generator(SEED);
 // define data to study
 #define SIDE_SEP 10
 #define SIDE_MIN 10
-#define SIDE_MAX 70
+#define SIDE_MAX 150
 // define outer betas -> 24 points
 #define BETA_SEP 0.0050
 #define BETA_INI 0.3600
@@ -335,8 +335,8 @@ void cumulant_analysis(float beta){
 
             file_analysis << "-----------------------------" << endl << endl;
         } else {
-            cerr << "Error: unable to open the file." << endl;
-            exit(1);
+            cout << "Unable to open the file : " << file_name << endl;
+            cout << "Skipping to next side..." << endl;
         }
     }
 

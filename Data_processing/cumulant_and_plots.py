@@ -10,17 +10,19 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 
-CUMUL = 1
+#------------------------
+CUMUL_INI = 1
+CUMUL_FIN = 1
 PLOTS = 1
-
+#------------------------
+BETA_INI = 0.3600
+BETA_FIN = 0.4800
+MIN_IND_CUM = 2
+#------------------------
 SIDE_SEP = 10
 SIDE_MIN = 10
 SIDE_MAX = 70
 sides = np.arange(SIDE_MIN, SIDE_MAX+1, SIDE_SEP, dtype='int')
-
-BETA_INI = 0.3600
-BETA_FIN = 0.4800
-MIN_IND_CUM = 2
 
 data_path = os.path.join("..", "Data_analysis")
 plot_path = os.path.join("..", "Plots_and_fit")
@@ -238,6 +240,9 @@ if __name__ == '__main__':
         plot_susceptibility(data)
         plot_all(data)
 
-    if(CUMUL):
+    if(CUMUL_INI):
         cumulant(BETA_INI)
+
+    if(CUMUL_FIN):
+        MIN_IND_CUM = 4
         cumulant(BETA_FIN)

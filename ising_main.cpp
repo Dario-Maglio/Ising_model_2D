@@ -47,22 +47,18 @@ using namespace std;
 
 // sides to simulate
 #define SIDE_SEP 10
-#define SIDE_MIN 40
-#define SIDE_MAX 70
-// outer betas -> 24 points
+#define SIDE_MIN 150
+#define SIDE_MAX 150
+// betas to simulate
 #define BETA_SEP 0.0050
-#define BETA_INI 0.3600
+#define BETA_INI 0.4800
 #define BETA_FIN 0.4800
-// inner betas -> 56 points
-#define BETA_C_SEP 0.00050
-#define BETA_C_INI 0.41525
-#define BETA_C_FIN 0.44350
 // number of measures to save
-#define MEASURES 1000
+#define MEASURES 100000
 // decorrelation between measures
 #define I_DECORREL 10 // * V
 // initialization flags
-#define I_FLAG 2
+#define I_FLAG 0
 #define G_FLAG 2
 // external field
 #define EXTFIELD 0.
@@ -93,7 +89,7 @@ void run_simulation(int side, float beta){
         ising.load_configuration(directory + name_file_state);
     } else {
         // Thermalization phase
-        for(int i = 0; i < (100*I_DECORREL); i++) ising.update(beta, EXTFIELD);
+        for(int i = 0; i < (1000*I_DECORREL); i++) ising.update(beta, EXTFIELD);
     }
 
     // Print initial energy and magnetization
