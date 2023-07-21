@@ -164,17 +164,17 @@ correl lenght 2048 -> 1.00106 ± 1.36341e-05
 side: 150 | beta: 0.48
 -----------------------------
  --- cumulant error: 
-correl lenght 1 -> 1.00038 ± 1.45344e-06
-correl lenght 2 -> 1.00038 ± 1.7583e-06
-correl lenght 4 -> 1.00038 ± 1.86583e-06
-correl lenght 8 -> 1.00038 ± 2.23872e-06
-correl lenght 16 -> 1.00038 ± 2.54753e-06
-correl lenght 32 -> 1.00038 ± 2.6239e-06
-correl lenght 64 -> 1.00038 ± 2.74617e-06
-correl lenght 128 -> 1.00038 ± 2.4864e-06
-correl lenght 256 -> 1.00038 ± 2.62758e-06
-correl lenght 512 -> 1.00038 ± 2.57547e-06
-correl lenght 1024 -> 1.00038 ± 2.65632e-06
-correl lenght 2048 -> 1.00038 ± 2.2625e-06
+correl lenght 1 -> 1.00038 ± 1.60382e-06
+correl lenght 2 -> 1.00038 ± 1.48387e-06
+correl lenght 4 -> 1.00038 ± 1.84439e-06
+correl lenght 8 -> 1.00038 ± 2.17004e-06
+correl lenght 16 -> 1.00038 ± 2.65057e-06
+correl lenght 32 -> 1.00038 ± 3.10935e-06
+correl lenght 64 -> 1.00038 ± 2.62004e-06
+correl lenght 128 -> 1.00038 ± 3.15281e-06
+correl lenght 256 -> 1.00038 ± 3.25109e-06
+correl lenght 512 -> 1.00038 ± 3.14858e-06
+correl lenght 1024 -> 1.00038 ± 3.30436e-06
+correl lenght 2048 -> 1.00038 ± 3.14808e-06
 -----------------------------
 

@@ -58,7 +58,7 @@ using namespace std;
 // decorrelation between measures
 #define I_DECORREL 10 // * V
 // initialization flags
-#define I_FLAG 0
+#define I_FLAG 2
 #define G_FLAG 2
 // external field
 #define EXTFIELD 0.
