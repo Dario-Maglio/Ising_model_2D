@@ -247,15 +247,15 @@ def plot_cal_scaling(data, beta_c, param, nu):
     fig = plt.figure(title)
     plt.style.use('seaborn-whitegrid')
     plt.title(title)
-    plt.ylabel(r'$ C_V - c / a log(L)$')
+    plt.ylabel(r'$ C_V / (1 + \alpha log(L))$')
     plt.xlabel(r'$(\beta - \beta_c) L^{1 / \nu} $')
     # load and plot susceptibility in function of beta
     a = param[0]
     c = param[1]
     for side in sides:
         x, _, _, _, _, y, y_err, _, _ = data[side]
-        y = (y - c) / (c*np.log(side))
-        y_err = y_err / (c*np.log(side))
+        y = y  / (1 + (c/a)*np.log(side))
+        y_err = y_err / (1 + (c/a)*np.log(side))
         x = (x - beta_c) * np.power(side, (1/nu))
         plt.errorbar(x, y, yerr=y_err, fmt='.', label=f'side = {side}')
     # save and show
